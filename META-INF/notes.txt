@@ -1,2 +1,8 @@
 App server(configure entitymanager) -> spring(get entitymanager from jndi?) -> spring(inject entitymanager into beans?)
 Where does persistence.xml fit into this?
+
+Glassfish - configure connection pool, data source
+Glassfish - alias data source in sun*....xml
+Spring - look up data source via aliased name?  probably not because...
+persistence.xml - knows data source name
+Spring - just use EntityManager based on persistence unit defined in persistence.xml
