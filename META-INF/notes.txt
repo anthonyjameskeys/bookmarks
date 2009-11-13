@@ -1,0 +1,2 @@
+App server(configure entitymanager) -> spring(get entitymanager from jndi?) -> spring(inject entitymanager into beans?)
+Where does persistence.xml fit into this?
