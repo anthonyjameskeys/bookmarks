@@ -9,10 +9,42 @@
       <include name="**/**/*.jar"/>
     </fileset>
   </path>
+  
+  <target name="clean">
+    <delete dir="build"/>
+    <mkdir dir="build"/>
+    <mkdir dir="dist"/>
+  </target>
 
   <target name="compile">
-    <javac srcdir="${basedir}/src" destdir="${basedir}/bin">
+    <javac srcdir="${basedir}/src" destdir="${basedir}/build">
       <classpath refid="bookmarks.class.path"/>
     </javac>
+    <copy todir="${basedir}/build">
+      <fileset dir="${basedir}/src/">
+        <include name="*-INF/**"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="jar" depends="compile">
+    <tstamp/>
+    <jar destfile="${basedir}/dist/bookmarks-${DSTAMP}${TSTAMP}.jar">
+      <fileset dir="${basedir}/build/"/>
+      <fileset dir="${basedir}/src/"/>
+      
+      <manifest>
+        <attribute name="Main-Class" value="${main.class}"/>
+      </manifest>
+    </jar>
+  </target>
+  
+  <target name="run" depends="jar">
+    <java classname="${main.class}" fork="true" failonerror="true">
+      <classpath refid="bookmarks.class.path"/>
+      <classpath>
+        <pathelement location="${basedir}/dist/bookmarks-${DSTAMP}${TSTAMP}.jar"/>
+      </classpath>
+    </java>
   </target>
 </project>
