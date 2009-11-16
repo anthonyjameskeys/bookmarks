@@ -1,8 +1,8 @@
 <?xml version="1.0"?> 
 <project name="Bookmarks" default="compile">
-
-  <property name="libdir" location="/Users/anthony/work/javalib/"/>
-
+  
+  <property file="build.properties"/>
+  
   <path id="bookmarks.class.path">
     <fileset dir="${libdir}/">
       <include name="**/*.jar"/>
