@@ -1,0 +1,18 @@
+<?xml version="1.0"?> 
+<project name="Bookmarks" default="compile">
+
+  <property name="libdir" location="/Users/anthony/work/javalib/"/>
+
+  <path id="bookmarks.class.path">
+    <fileset dir="${libdir}/">
+      <include name="**/*.jar"/>
+      <include name="**/**/*.jar"/>
+    </fileset>
+  </path>
+
+  <target name="compile">
+    <javac srcdir="${basedir}/src" destdir="${basedir}/bin">
+      <classpath refid="bookmarks.class.path"/>
+    </javac>
+  </target>
+</project>

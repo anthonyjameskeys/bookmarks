@@ -6,3 +6,6 @@ Glassfish - alias data source in sun*....xml
 Spring - look up data source via aliased name?  probably not because...
 persistence.xml - knows data source name
 Spring - just use EntityManager based on persistence unit defined in persistence.xml
+
+
+git - get last commit details command?
