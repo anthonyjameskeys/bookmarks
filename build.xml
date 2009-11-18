@@ -5,8 +5,8 @@
   
   <path id="bookmarks.class.path">
     <fileset dir="${libdir}/">
-      <include name="**/*.jar"/>
-      <include name="**/**/*.jar"/>
+      <include name="apache-openjpa-1.2.1/**/*.jar"/>
+      <include name="spring-framework-3.0.0.RC1/**/*.jar"/>
     </fileset>
   </path>
   
