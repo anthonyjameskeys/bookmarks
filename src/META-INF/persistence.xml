@@ -7,8 +7,10 @@
     <class>Bookmark</class>
     
     <properties>
-      <property name="openjpa.ConnectionURL" value="jdbc:derby:test_db;create=true"/> 
-      <property name="openjpa.ConnectionDriverName" value="org.apache.derby.jdbc.EmbeddedDriver"/> 
+      <property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:3306/test_db"/> 
+      <property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver"/>
+      <property name="openjpa.ConnectionUserName" value="test"/>
+      <property name="openjpa.ConnectionPassword" value="test"/> 
       <property name="openjpa.Log" value="DefaultLevel=WARN, Tool=INFO"/> 
     </properties>
   </persistence-unit> 

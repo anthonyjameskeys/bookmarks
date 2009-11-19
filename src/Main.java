@@ -8,7 +8,10 @@ public class Main {
 		
 		User user = new User();
 		user.name="Anthony";
+		em.getTransaction().begin();
 		em.persist(user);
+		em.getTransaction().commit();
+		System.out.println("id is: " + user.id);
 		System.out.println("all done!");
 	}
 }
