@@ -58,10 +58,19 @@
       <classpath refid="openjpa.path"/>
     </taskdef>
     
+    <taskdef name="enhance" classname="org.apache.openjpa.ant.PCEnhancerTask">
+      <classpath refid="openjpa.path"/>
+    </taskdef>
+    
     <mappingtool schemaaction="add">
       <classpath refid="openjpa.path"/>
       <config propertiesFile="build/META-INF/persistence.xml"/>
     </mappingtool>
+    
+    <enhance>
+      <classpath refid="openjpa.path"/>
+      <config propertiesFile="build/META-INF/persistence.xml"/>
+    </enhance>
   </target>
   
   <target name="run" depends="jar, dbrefresh">

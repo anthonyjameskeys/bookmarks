@@ -12,3 +12,4 @@ git - get last commit details command?
 git log --summary -1
 
 OpenJPA - how do we load/update schema based on entity definitions?
+- with the MappingTool and its Ant task!
