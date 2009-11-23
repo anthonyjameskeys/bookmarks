@@ -10,16 +10,16 @@ import java.io.Serializable;
 public class User implements Serializable {
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO, generator="uuid-hex")
-	String id;
+	public String id;
 	
-	String name;
-	String emailAddress;
+	public String name;
+	public String emailAddress;
 	
 	@OneToMany
 	List<Bookmark> bookmarks = new ArrayList<Bookmark>();
 	
 	@Version 
-	int version;
+	public int version;
 	
 	// try @Embeddable
 }

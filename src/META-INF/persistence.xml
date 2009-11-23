@@ -3,8 +3,8 @@
   <persistence-unit name="bookmarks"> 
     <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider> 
     
-    <class>User</class>
-    <class>Bookmark</class>
+    <class>net.anthonychaves.bookmarks.models.User</class>
+    <class>net.anthonychaves.bookmarks.models.Bookmark</class>
     
     <properties>
       <property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:3306/test_db"/> 
