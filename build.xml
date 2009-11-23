@@ -44,7 +44,7 @@
     </jar>
   </target>
   
-  <target name="dbrefresh">
+  <target name="dbrefresh" depends="compile">
     <path id="openjpa.path">
       <fileset dir="${libdir}/">
         <include name="apache-openjpa-1.2.1/**/*.jar"/>
@@ -62,7 +62,7 @@
       <classpath refid="openjpa.path"/>
     </taskdef>
     
-    <mappingtool schemaaction="add">
+    <mappingtool>
       <classpath refid="openjpa.path"/>
       <config propertiesFile="build/META-INF/persistence.xml"/>
     </mappingtool>
