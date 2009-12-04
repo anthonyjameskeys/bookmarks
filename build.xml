@@ -44,6 +44,20 @@
     </jar>
   </target>
   
+  <target name="war" depends="compile">
+    <tstamp/>
+    <war destfile="${basedir}/dist/bookmarks-${DSTAMP}${TSTAMP}.war" webxml="src/WEB-INF/web.xml">
+      <fileset dir="${basedir}/build">
+        <exclude name="**/*.class"/>
+        <exclude name="net*"/>
+      </fileset>
+      <classes dir="${basedir}/build"/>
+      <lib dir="${basedir}/lib">
+        <include name="*.jar"/>
+      </lib>
+    </war>    
+  </target>
+  
   <target name="dbrefresh" depends="compile">
     <path id="openjpa.path">
       <fileset dir="${libdir}/">

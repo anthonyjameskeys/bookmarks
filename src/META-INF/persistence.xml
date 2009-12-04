@@ -14,4 +14,15 @@
       <property name="openjpa.Log" value="DefaultLevel=WARN, Tool=INFO"/> 
     </properties>
   </persistence-unit> 
+
+  <persistence-unit name="bookmarksDS" transaction-type="RESOURCE_LOCAL"> 
+    <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider> 
+    <non-jta-data-source>bookmarksDS</non-jta-data-source>
+    <class>net.anthonychaves.bookmarks.models.User</class>
+    <class>net.anthonychaves.bookmarks.models.Bookmark</class>
+    
+    <properties>
+      <property name="openjpa.Log" value="DefaultLevel=WARN, Tool=INFO"/> 
+    </properties>
+  </persistence-unit>
 </persistence>

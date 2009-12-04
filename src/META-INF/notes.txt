@@ -13,3 +13,9 @@ git log --summary -1
 
 OpenJPA - how do we load/update schema based on entity definitions?
 - with the MappingTool and its Ant task!
+
+Set up sun-web.xml with persistence unit and persistence context refs.  Use Spring PersistenceAnnotationBeanPostProcessor and reference the contexts defined in sun-web.xml
+
+Blog entry: what's the difference between Spring EntityManager subclass and GlassFish EntityManager implementation and management?  Spring provides a thread-safe subclass or wrapper. How does GlassFish do it?  Is it thread safe?
+
+Video encoding - each process has 2 threads: one for transcode, one to monitor and report to database.
