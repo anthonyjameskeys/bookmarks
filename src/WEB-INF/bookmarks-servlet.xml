@@ -9,8 +9,5 @@
                            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
   <context:component-scan base-package="net.anthonychaves.bookmarks.web"/>
-  
-  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/jsp/"
-  			p:suffix=".jsp"/>
 
 </beans>
