@@ -35,23 +35,35 @@
   <target name="jar" depends="compile">
     <tstamp/>
     <jar destfile="${basedir}/dist/bookmarks-${DSTAMP}${TSTAMP}.jar">
-      <fileset dir="${basedir}/build/"/>
-      <fileset dir="${basedir}/src/"/>
+      <fileset dir="${basedir}/build/">
+        <exclude name="**/*Controller*"/>
+        <exclude name="**/web.xml"/>
+        <exclude name="**/*-servlet.xml"/>
+      </fileset>
+<!--      <fileset dir="${basedir}/src/"/>-->
       
       <manifest>
         <attribute name="Main-Class" value="${main.class}"/>
       </manifest>
     </jar>
+    <copy todir="${basedir}/lib/">
+      <fileset dir="${basedir}/dist/">
+        <include name="bookmarks-${DSTAMP}${TSTAMP}.jar"/>
+      </fileset>
+    </copy>
   </target>
   
-  <target name="war" depends="compile">
+  <target name="war" depends="jar">
     <tstamp/>
     <war destfile="${basedir}/dist/bookmarks-${DSTAMP}${TSTAMP}.war" webxml="src/WEB-INF/web.xml">
       <fileset dir="${basedir}/build">
         <exclude name="**/*.class"/>
-        <exclude name="net*"/>
+        <exclude name="**/persistence.xml"/>
       </fileset>
-      <classes dir="${basedir}/build"/>
+      <classes dir="${basedir}/build">
+        <exclude name="**/models/*.class"/>
+        <exclude name="**/*-INF/*"/>
+      </classes>
       <lib dir="${basedir}/lib">
         <include name="*.jar"/>
       </lib>
