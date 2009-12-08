@@ -8,6 +8,7 @@
       <include name="apache-openjpa-1.2.1/**/*.jar"/>
       <include name="spring-framework-3.0.0.RC1/**/*.jar"/>
       <include name="mysql-connector-java-5.1.10/**/*.jar"/>
+      <include name="javaee.jar"/>
     </fileset>
     <fileset dir="${basedir}/build">
       <include name="**/*"/>
@@ -67,7 +68,9 @@
       <lib dir="${basedir}/lib">
         <include name="*.jar"/>
       </lib>
-    </war>    
+    </war>   
+    <copy tofile="/Users/anthony/glassfish/domains/domain1/autodeploy/bookmarks.war"
+          file="${basedir}/dist/bookmarks-${DSTAMP}${TSTAMP}.war"/>
   </target>
   
   <target name="dbrefresh" depends="compile">

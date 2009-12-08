@@ -7,7 +7,7 @@
     <persistence-unit-ref-name>persistence/bookmarksPU</persistence-unit-ref-name>
     <persistence-unit-name>bookmarksPU</persistence-unit-name>
   </persistence-unit-ref>	       
-	       
+
   <servlet>
     <servlet-name>bookmarks</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -15,6 +15,9 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>bookmarks</servlet-name>
-    <url-pattern>/*</url-pattern>
+    <url-pattern>/b/*</url-pattern>
   </servlet-mapping>
+
+  <context-root>/bookmarks</context-root>
+
 </web-app>

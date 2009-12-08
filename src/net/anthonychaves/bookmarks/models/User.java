@@ -15,11 +15,35 @@ public class User implements Serializable {
 	public String name;
 	public String emailAddress;
 	
-	@OneToMany
+	@OneToMany(mappedBy="user")
 	List<Bookmark> bookmarks = new ArrayList<Bookmark>();
 	
 	@Version 
 	public int version;
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+	
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+	
+	public void setBookmarks(List<Bookmark> bookmarks) {
+		this.bookmarks = bookmarks;
+	}
+	
+	public List<Bookmark> getBookmarks() {
+		return bookmarks;
+	}
 	
 	// try @Embeddable
 }

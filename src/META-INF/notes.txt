@@ -19,3 +19,5 @@ Set up sun-web.xml with persistence unit and persistence context refs.  Use Spri
 Blog entry: what's the difference between Spring EntityManager subclass and GlassFish EntityManager implementation and management?  Spring provides a thread-safe subclass or wrapper. How does GlassFish do it?  Is it thread safe?
 
 Video encoding - each process has 2 threads: one for transcode, one to monitor and report to database.
+
+Need JCaptcha for signup and CSRFGuard for CSRF protection.  How do we create an API with CSRFGuard?
