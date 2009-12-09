@@ -18,6 +18,16 @@
     <url-pattern>/b/*</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>jcaptcha</servlet-name>
+    <servlet-class>net.anthonychaves.bookmarks.web.ImageCaptchaServlet</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>jcaptcha</servlet-name>
+    <url-pattern>/jcaptcha</url-pattern>
+  </servlet-mapping>
+
   <context-root>/bookmarks</context-root>
 
 </web-app>

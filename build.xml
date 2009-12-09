@@ -9,6 +9,7 @@
       <include name="spring-framework-3.0.0.RC1/**/*.jar"/>
       <include name="mysql-connector-java-5.1.10/**/*.jar"/>
       <include name="javaee.jar"/>
+      <include name="jcaptcha-1.0-all.jar"/>
     </fileset>
     <fileset dir="${basedir}/build">
       <include name="**/*"/>

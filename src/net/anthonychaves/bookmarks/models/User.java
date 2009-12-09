@@ -45,5 +45,13 @@ public class User implements Serializable {
 		return bookmarks;
 	}
 	
+	public String getId() {
+		return id;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 	// try @Embeddable
 }

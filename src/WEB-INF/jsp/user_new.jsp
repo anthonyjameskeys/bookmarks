@@ -5,7 +5,12 @@
 
 Hi.  Do you want to sign up?
 
-<form:form action="create" modelAttribute="user">
-<form:input id="name" path="name"/>
-<input type="submit" value="yes please!">
+<form:form action="/bookmarks/b/user" modelAttribute="user">
+<form:label path="name" title="Username: "/><form:input id="name" path="name"/>
+<br/>
+<img src="/bookmarks/jcaptcha"/>
+<br/>
+<form:label path="" title="Captcha: "/><input type="text" name="j_captcha_response"/>
+<br/>
+<input type="submit" value="Yes please!"/>
 </form:form>

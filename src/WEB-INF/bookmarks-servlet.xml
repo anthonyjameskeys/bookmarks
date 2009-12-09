@@ -22,4 +22,8 @@
     <property name="suffix" value=".jsp"/>
   </bean>
 
+  <bean id="captchaService" class="net.anthonychaves.bookmarks.service.CaptchaServiceSingleton"
+        factory-method="getInstance"/>
+
+
 </beans>
