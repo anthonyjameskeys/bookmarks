@@ -1,21 +1,24 @@
 package net.anthonychaves.bookmarks.models;
 
 import javax.persistence.*;
+
+import org.apache.openjpa.persistence.jdbc.*;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.io.Serializable;
 
 @Entity
-@Table(name="users")
+@Table(name="users", uniqueConstraints={@UniqueConstraint(columnNames="name")})
 public class User implements Serializable {
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO, generator="uuid-hex")
 	public String id;
-	
+
 	public String name;
 	public String emailAddress;
 	
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
 	List<Bookmark> bookmarks = new ArrayList<Bookmark>();
 	
 	@Version 

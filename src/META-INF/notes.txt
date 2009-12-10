@@ -21,3 +21,7 @@ Blog entry: what's the difference between Spring EntityManager subclass and Glas
 Video encoding - each process has 2 threads: one for transcode, one to monitor and report to database.
 
 Need JCaptcha for signup and CSRFGuard for CSRF protection.  How do we create an API with CSRFGuard?
+
+Service layer - replace persistence units in controllers with service layer - UserService, BookmarkService
+
+implement "that user name already exists, that email address is already in use"

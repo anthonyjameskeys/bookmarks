@@ -11,18 +11,10 @@
                            http://www.springframework.org/schema/jee 
                            http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
 
-  <import resource="services.xml"/>
+  <jee:jndi-lookup id="bookmarksPU" jndi-name="persistence/bookmarksPU"/>
 
-  <!-- component-scan creates implicit AutowiredBeanPostProcessor, we don't need PersistenceAnnotationPostProcessor -->
+  <!-- here we need component-scan for the services and annotation-config for the persistence unit -->
   <context:component-scan base-package="net.anthonychaves.bookmarks"/>
+  <context:annotation-config/>
 
-  <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/> 
-    <property name="prefix" value="/WEB-INF/jsp/"/> 
-    <property name="suffix" value=".jsp"/>
-  </bean>
-
-  <bean id="captchaService" class="net.anthonychaves.bookmarks.service.CaptchaServiceSingleton"
-        factory-method="getInstance"/>
-        
 </beans>

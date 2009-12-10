@@ -11,13 +11,14 @@ import javax.servlet.http.*;
 import com.octo.captcha.service.image.ImageCaptchaService;
 
 import net.anthonychaves.bookmarks.models.*;
+import net.anthonychaves.bookmarks.service.*;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
-	@PersistenceUnit(unitName="bookmarksPU")
-	EntityManagerFactory emf;
+	@Autowired
+	UserService userService;
 	
 	@Autowired
 	ImageCaptchaService icservice;
@@ -32,8 +33,10 @@ public class UserController {
 	public String createUser(@ModelAttribute("user") User user, 
 							 HttpSession session, 
 							 @RequestParam("j_captcha_response") String captchaResponse) {
+							   
 		boolean validResponse = icservice.validateResponseForID(session.getId(), captchaResponse);
 		if (validResponse) {
+		  userService.saveUser(user);
 		  session.setAttribute("user", user);
 			return "redirect:/b/user";
 		} else {
@@ -51,7 +54,14 @@ public class UserController {
 	  return "user";
 	}
 	
-	public void setEmf(EntityManagerFactory factory) {
-		this.emf = factory;
+	@RequestMapping(method=RequestMethod.POST, value="/login")
+	public String login(@RequestParam("name") String username, HttpSession session) {
+	  User user = userService.findUser(username);
+	  session.setAttribute("user", user);
+    return "redirect:/b/user";
+	}
+	
+	public void setUserService(UserService userService) {
+	  this.userService = userService;
 	}
 }

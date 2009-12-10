@@ -14,3 +14,13 @@ Hi.  Do you want to sign up?
 <br/>
 <input type="submit" value="Yes please!"/>
 </form:form>
+
+<br/>
+Or do you want to log in?
+<br/>
+
+<form:form action="/bookmarks/b/user/login">
+<input type="text" name="name"/>
+<br/>
+<input type="submit" value="Log in!"/>
+</form:form>

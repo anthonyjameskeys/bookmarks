@@ -4,6 +4,9 @@ package net.anthonychaves.bookmarks.service;
 import com.octo.captcha.service.image.ImageCaptchaService;
 import com.octo.captcha.service.image.DefaultManageableImageCaptchaService;
 
+import org.springframework.stereotype.*;
+
+@Service
 public class CaptchaServiceSingleton {
 
     private static ImageCaptchaService instance = new DefaultManageableImageCaptchaService();

@@ -1,1 +1,4 @@
-hello, this is your user page
+<%@ page contentType="text/html; charset=UTF-8" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+hello ${user.name}, this is your user page  

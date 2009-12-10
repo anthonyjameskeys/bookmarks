@@ -19,6 +19,10 @@ public class BookmarkController {
 	@RequestMapping(method=RequestMethod.GET)
 	@ResponseBody
 	public String addBookmark(@ModelAttribute Bookmark bookmark, HttpSession session) {
+	  if (session == null || session.getAttribute("user") == null) {
+	    return "fail";
+	  }
+	  
 	  User user = (User) session.getAttribute("user");
 		bookmark.setUser(user);
 		
