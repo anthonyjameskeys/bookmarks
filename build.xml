@@ -5,11 +5,7 @@
   
   <path id="bookmarks.class.path">
     <fileset dir="${libdir}/">
-      <include name="apache-openjpa-1.2.1/**/*.jar"/>
-      <include name="spring-framework-3.0.0.RC1/**/*.jar"/>
-      <include name="mysql-connector-java-5.1.10/**/*.jar"/>
-      <include name="javaee.jar"/>
-      <include name="jcaptcha-1.0-all.jar"/>
+      <include name="*.jar"/>
     </fileset>
     <fileset dir="${basedir}/build">
       <include name="**/*"/>
