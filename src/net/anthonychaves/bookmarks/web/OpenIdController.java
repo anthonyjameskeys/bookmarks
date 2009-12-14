@@ -17,12 +17,12 @@ import java.util.List;
 @RequestMapping("/login")
 public class OpenIdController {
   
-  private String returnUrl; // = "http://76.24.64.156:8080/bookmarks/b/login/return";
-  private String discoveryTarget; // = "https://www.google.com/accounts/o8/id";
+  private String returnUrl;
+  private String discoveryTarget;
+  private ConsumerManager manager;
 
   @RequestMapping(method=RequestMethod.GET)
   public String discoverProvider(HttpSession session) throws Exception {
-    ConsumerManager manager = new ConsumerManager();
     List discoveries = manager.discover(discoveryTarget);
     DiscoveryInformation discovered = manager.associate(discoveries);
     session.setAttribute("discovered", discovered);
@@ -34,6 +34,33 @@ public class OpenIdController {
   @RequestMapping(value="/return")
   @ResponseBody
   public String openIdReturn(HttpServletRequest request, HttpSession session) {
+    /**
+    // extract the parameters from the authentication response
+       // (which comes in as a HTTP request from the OpenID provider)
+       ParameterList openidResp = new ParameterList(request.getParameterMap());
+
+       // retrieve the previously stored discovery information
+       DiscoveryInformation discovered = (DiscoveryInformation) session.getAttribute("discovered");
+
+       // extract the receiving URL from the HTTP request
+       StringBuffer receivingURL = request.getRequestURL();
+       String queryString = request.getQueryString();
+       if (queryString != null && queryString.length() > 0)
+           receivingURL.append("?").append(request.getQueryString());
+
+       // verify the response
+       VerificationResult verification = _consumerManager.verify(receivingURL.toString(), openidResp, discovered);
+
+       // examine the verification result and extract the verified identifier
+       Identifier verified = verification.getVerifiedId();
+
+       if (verified != null)
+           // success, use the verified identifier to identify the user
+       else
+           // OpenID authentication failed
+    */
+    
+    
     
     return "at least we got back here";
   }

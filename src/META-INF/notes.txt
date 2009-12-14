@@ -25,3 +25,9 @@ Need JCaptcha for signup and CSRFGuard for CSRF protection.  How do we create an
 Service layer - replace persistence units in controllers with service layer - UserService, BookmarkService
 
 implement "that user name already exists, that email address is already in use"
+
+Is openid.identity permanent?  Does this token change?  Is it ok to use this as unique user id in webapp?
+
+How do we open a new window for authentication instead of using a redirect?
+
+ConsumerManager must be static or singleton - how do we route back to the same one in a cluster?

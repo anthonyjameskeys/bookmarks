@@ -27,5 +27,8 @@
   
   <bean id="openIdController" class="net.anthonychaves.bookmarks.web.OpenIdController"
         p:returnUrl="http://76.24.64.156:8080/bookmarks/b/login/return"
-        p:discoveryTarget="https://www.google.com/accounts/o8/id"/>
+        p:discoveryTarget="https://www.google.com/accounts/o8/id"
+        p:consumerManager-ref="consumerManager"/>
+        
+  <bean id="consumerManager" class="org.openid4java.consumer.ConsumerManager"/>
 </beans>
