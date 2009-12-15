@@ -31,3 +31,13 @@ Is openid.identity permanent?  Does this token change?  Is it ok to use this as 
 How do we open a new window for authentication instead of using a redirect?
 
 ConsumerManager must be static or singleton - how do we route back to the same one in a cluster?
+
+Error messages for login
+
+Web API access - servlet filter to translate API token into user session, set session/user for rest of the request. Transparent access and use the same API
+
+WebKit page screen shots when adding bookmark
+
+How do we map views <-> xml responses?
+
+Revisit @PersistenceUnit vs. @PersistenceContext annotations

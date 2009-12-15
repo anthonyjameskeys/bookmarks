@@ -1,13 +1,16 @@
 package net.anthonychaves.bookmarks.models;
 
 import javax.persistence.*;
-import org.apache.openjpa.persistence.*;
+
 import java.io.Serializable;
 
 @Entity
 @Table(name="bookmarks")
 public class Bookmark implements Serializable {
-	@Id long id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO, generator="uuid-hex")
+	String id;
+	
 	String url;
 	int hitCount;
 	
@@ -30,11 +33,11 @@ public class Bookmark implements Serializable {
 		this.url = url;
 	}
 	
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 	
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	

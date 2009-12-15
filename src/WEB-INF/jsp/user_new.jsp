@@ -19,8 +19,8 @@ Hi.  Do you want to sign up?
 Or do you want to log in?
 <br/>
 
-<form:form action="/bookmarks/b/user/login">
-<input type="text" name="name"/>
+<form:form action="/bookmarks/b/fakelogin">
+<input type="text" name="username"/>
 <br/>
 <input type="submit" value="Log in!"/>
 </form:form>

@@ -80,4 +80,8 @@ public class OpenIdController {
   public String getDiscoveryTarget() {
     return discoveryTarget;
   }
+  
+  public void setConsumerManager(ConsumerManager manager) {
+    this.manager = manager;
+  }
 }

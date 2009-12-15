@@ -73,9 +73,7 @@
   <target name="dbrefresh" depends="compile">
     <path id="openjpa.path">
       <fileset dir="${libdir}/">
-        <include name="apache-openjpa-1.2.1/**/*.jar"/>
-        <include name="spring-framework-3.0.0.RC1/**/*.jar"/>
-        <include name="mysql-connector-java-5.1.10/**/*.jar"/>
+        <include name="*.jar"/>
       </fileset>
       <pathelement location="${basedir}/build"/>
     </path>
