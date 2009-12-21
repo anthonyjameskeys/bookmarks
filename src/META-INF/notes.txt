@@ -41,3 +41,13 @@ WebKit page screen shots when adding bookmark
 How do we map views <-> xml responses?
 
 Revisit @PersistenceUnit vs. @PersistenceContext annotations
+- JTA transactions let us use CMT.  CMT in Spring is invasive to programming model, moreso than UserTransaction API.  
+- JTA transactions also let us inject an EntityManager into a bean taken from the current thread.  EntityManager has a cache associated with it.  EntityManager and its cache hang around only for the duration of the transaction.  
+- Extended transaction scope is good for stateful session beans - the EntityManager and its cache hang around for the duration of a method spanning business process.  
+- So, we're left with a cache that's useful for one thread of execution inside a JTA transaction.  We need a database hit for each EntityManager persistence context cache miss.  We have an empty cache for each thread.  This prevents us from getting stale data since we get it right from the database for every thread.
+- But we have to hit the database for each object in each thread.  Doesn't this seem wasteful?
+- Shared cache!  
+- Can we switch to Hibernate as our JPA provider and slip ehcache in to serve as the shared cache?
+- How do we handle evictions?  Is this only a problem when more than one application access our database?
+
+How do I revert a file to its pre-edit state with git?  I do not want to check in a file.  Bad edit.  
