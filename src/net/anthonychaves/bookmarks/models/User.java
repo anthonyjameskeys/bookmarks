@@ -11,9 +11,8 @@ import java.io.Serializable;
 @Entity
 @Table(name="users", uniqueConstraints={@UniqueConstraint(columnNames="name")})
 public class User implements Serializable {
-	@Id 
-	@GeneratedValue(strategy=GenerationType.AUTO, generator="uuid-hex")
-	public String id;
+	@Id
+	public int id;
 
 	public String name;
 	public String emailAddress;
@@ -21,8 +20,8 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
 	List<Bookmark> bookmarks = new ArrayList<Bookmark>();
 	
-	@Version 
-	public int version;
+//	@Version 
+//	public int version;
 	
 	public void setName(String name) {
 		this.name = name;
@@ -48,11 +47,11 @@ public class User implements Serializable {
 		return bookmarks;
 	}
 	
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 	
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	

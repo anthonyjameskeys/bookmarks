@@ -15,7 +15,7 @@ public class UserService {
   public void saveUser(User user) {
     EntityManager em = emf.createEntityManager();
     em.getTransaction().begin();
-    em.persist(user);
+    user = em.merge(user);
     em.getTransaction().commit();
   }
   
@@ -27,5 +27,12 @@ public class UserService {
     User user = (User) query.getSingleResult();
     em.getTransaction().rollback();
     return user;
+  }
+  
+  public void createUser(User user) {
+    EntityManager em = emf.createEntityManager();
+    em.getTransaction().begin();
+    em.persist(user);
+    em.getTransaction().commit();
   }
 }

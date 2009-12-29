@@ -30,7 +30,7 @@ public class FakeLoginController {
       session.setAttribute("user", u);
       return "redirect:user";
     } else {
-      return "redirect:user_new";
+      return "redirect:/b/user/new";
     }
   }
   

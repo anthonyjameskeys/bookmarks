@@ -36,7 +36,7 @@ public class UserController {
 							   
 		boolean validResponse = icservice.validateResponseForID(session.getId(), captchaResponse);
 		if (validResponse) {
-		  userService.saveUser(user);
+		  userService.createUser(user);
 		  session.setAttribute("user", user);
 			return "redirect:/b/user";
 		} else {
@@ -49,8 +49,7 @@ public class UserController {
 	  if (session == null || session.getAttribute("user") == null) {
 	    return "redirect:/b/user/new";
 	  }
-	  
-		User user = (User)session.getAttribute("user");
+	  User user = (User)session.getAttribute("user");
 	  return "user";
 	}
 	

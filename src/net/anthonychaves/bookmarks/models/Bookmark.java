@@ -8,8 +8,7 @@ import java.io.Serializable;
 @Table(name="bookmarks")
 public class Bookmark implements Serializable {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO, generator="uuid-hex")
-	String id;
+	int id;
 	
 	String url;
 	int hitCount;
@@ -33,11 +32,11 @@ public class Bookmark implements Serializable {
 		this.url = url;
 	}
 	
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 	
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	

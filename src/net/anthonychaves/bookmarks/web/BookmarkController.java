@@ -12,34 +12,40 @@ import net.anthonychaves.bookmarks.models.*;
 import net.anthonychaves.bookmarks.service.*;
 
 @Controller
-@RequestMapping("/bookmark")
+@RequestMapping("/bookmarks")
 public class BookmarkController {
 
   @Autowired
-  UserService userService;
+  BookmarkService bookmarkService;
 
 	@RequestMapping(method=RequestMethod.POST)
-	public String addBookmark(@RequestParam("url") String urlString, HttpSession session) {
+	public String addBookmark(@ModelAttribute("bookmark") Bookmark bookmark, HttpSession session) {
     User u = (User) session.getAttribute("user");
+
+    
     Bookmark b = new Bookmark();
-    
     // might help to validate url here...
-    b.setUrl(urlString);
-    b.setUser(u);
-    u.getBookmarks().add(b);
+    b.setUrl(bookmark.getUrl());
     
-    userService.saveUser(u);
-    
-    return "redirect:success";
+    bookmarkService.saveBookmark(b, u);
+// setting user on session here is dumb - the user state only changed in the saveBookmark call.
+// do we return the altered user object here?  
+    session.setAttribute("user", u);
+    return "redirect:user";
 	}
+
+  @RequestMapping(method=RequestMethod.GET)
+  public String getUserBookmarks() {
+    return "user_bookmarks";
+  }
+  
+  @RequestMapping(method=RequestMethod.GET, value="/new")
+  public String setupForm(ModelMap model) {
+    model.addAttribute(new Bookmark());
+    return "add_bookmark";
+  }
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public String setupForm(ModelMap models) {
-	  models.addAttribute(new Bookmark());
-	  return "add_bookmark";
-	}
-	
-	public void setUserService(UserService userService) {
-	  this.userService = userService;
+	public void setBookmarkService(BookmarkService bookmarkService) {
+	  this.bookmarkService = bookmarkService;
 	}
 }

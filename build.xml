@@ -14,7 +14,13 @@
   </path>
   
   <target name="clean">
+    <delete>
+      <fileset dir="lib" includes="bookmarks-*"/>
+    </delete>
+    
     <delete dir="build"/>
+    <delete dir="dist"/>
+    
     <mkdir dir="build"/>
     <mkdir dir="dist"/>
   </target>

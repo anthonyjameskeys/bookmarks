@@ -50,4 +50,10 @@ Revisit @PersistenceUnit vs. @PersistenceContext annotations
 - Can we switch to Hibernate as our JPA provider and slip ehcache in to serve as the shared cache?
 - How do we handle evictions?  Is this only a problem when more than one application access our database?
 
-How do I revert a file to its pre-edit state with git?  I do not want to check in a file.  Bad edit.  
+How do I revert a file to its pre-edit state with git?  I do not want to check in a file.  Bad edit.  solution: git checkout -- <files>
+
+@GeneratedValue id won't merge: https://issues.apache.org/jira/browse/OPENJPA-673
+
+Merging User stored in HttpSession - user instance seems like a new instance, not detached.  Need to find by id, then save
+
+REST-like api: add servlet filter to look up user and insert into session based on token provided in api call.  return json or xml instead of forwarding to jsp

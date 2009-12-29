@@ -1,4 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8" %> 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="header.jsp" %>
 
-hello ${user.name}, this is your user page  
+hello ${user.name}, this is your user page
+<br/>
+
+<jsp:include page="/b/bookmarks/new"/>
+<br/>
+<jsp:include page="/b/bookmarks"/>
