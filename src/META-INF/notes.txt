@@ -54,6 +54,8 @@ How do I revert a file to its pre-edit state with git?  I do not want to check i
 
 @GeneratedValue id won't merge: https://issues.apache.org/jira/browse/OPENJPA-673
 
-Merging User stored in HttpSession - user instance seems like a new instance, not detached.  Need to find by id, then save
+Merging User stored in HttpSession - user instance seems like a new instance, not detached.  Need to find by id, then save - I really don't like how this works, but it is what it is.
 
 REST-like api: add servlet filter to look up user and insert into session based on token provided in api call.  return json or xml instead of forwarding to jsp
+
+Go back to userService in BookmarkController.  Return modified user from new addBookmark call. - Done

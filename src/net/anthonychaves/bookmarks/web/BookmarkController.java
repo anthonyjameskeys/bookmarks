@@ -16,21 +16,17 @@ import net.anthonychaves.bookmarks.service.*;
 public class BookmarkController {
 
   @Autowired
-  BookmarkService bookmarkService;
+  UserService userService;
 
 	@RequestMapping(method=RequestMethod.POST)
 	public String addBookmark(@ModelAttribute("bookmark") Bookmark bookmark, HttpSession session) {
     User u = (User) session.getAttribute("user");
-
-    
     Bookmark b = new Bookmark();
     // might help to validate url here...
     b.setUrl(bookmark.getUrl());
     
-    bookmarkService.saveBookmark(b, u);
-// setting user on session here is dumb - the user state only changed in the saveBookmark call.
-// do we return the altered user object here?  
-    session.setAttribute("user", u);
+    User user = userService.addBookmark(u, b);
+    session.setAttribute("user", user);
     return "redirect:user";
 	}
 
@@ -45,7 +41,7 @@ public class BookmarkController {
     return "add_bookmark";
   }
 	
-	public void setBookmarkService(BookmarkService bookmarkService) {
-	  this.bookmarkService = bookmarkService;
+	public void setUserService(UserService userService) {
+	  this.userService = userService;
 	}
 }

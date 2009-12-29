@@ -9,19 +9,23 @@ import java.util.ArrayList;
 import java.io.Serializable;
 
 @Entity
-@Table(name="users", uniqueConstraints={@UniqueConstraint(columnNames="name")})
+@Table(name="users", uniqueConstraints={@UniqueConstraint(columnNames="name"), @UniqueConstraint(columnNames="apiKey"), 
+                                        @UniqueConstraint(columnNames="emailAddress")})
 public class User implements Serializable {
 	@Id
-	public int id;
+	int id;
 
-	public String name;
-	public String emailAddress;
+  
+	String apiKey;
+
+	String name;
+	String emailAddress;
 	
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
 	List<Bookmark> bookmarks = new ArrayList<Bookmark>();
 	
-//	@Version 
-//	public int version;
+	@Version 
+	int version;
 	
 	public void setName(String name) {
 		this.name = name;
@@ -55,5 +59,11 @@ public class User implements Serializable {
 		this.id = id;
 	}
 	
-	// try @Embeddable
+	public void setApiKey(String apiKey) {
+	  this.apiKey = apiKey;
+	}
+	
+	public String getApiKey() {
+	  return apiKey;
+	}
 }
