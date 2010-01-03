@@ -8,6 +8,7 @@ import java.io.Serializable;
 @Table(name="bookmarks")
 public class Bookmark implements Serializable {
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int id;
 	
 	String url;

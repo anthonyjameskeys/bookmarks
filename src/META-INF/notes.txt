@@ -59,3 +59,5 @@ Merging User stored in HttpSession - user instance seems like a new instance, no
 REST-like api: add servlet filter to look up user and insert into session based on token provided in api call.  return json or xml instead of forwarding to jsp
 
 Go back to userService in BookmarkController.  Return modified user from new addBookmark call. - Done
+
+UUID is 128 bits or 2^128.  hex encoded string: each character is 2^4. 16 hex char representation of the 64 most or least sig bits of a UUID is 2^64 because each char is half a byte.

@@ -34,6 +34,7 @@ public class UserService {
     em.getTransaction().begin();
     User u = (User) em.find(User.class, user.getId());
     bookmark.setUser(u);
+    em.persist(bookmark);
     u.getBookmarks().add(bookmark);
     em.getTransaction().commit();
 

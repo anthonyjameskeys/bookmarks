@@ -13,6 +13,7 @@ import java.io.Serializable;
                                         @UniqueConstraint(columnNames="emailAddress")})
 public class User implements Serializable {
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int id;
 
   

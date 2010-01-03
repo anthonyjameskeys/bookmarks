@@ -12,12 +12,13 @@ public class BookmarkService {
   @PersistenceUnit(unitName="bookmarksPU")
   EntityManagerFactory emf;
   
-  public void saveBookmark(Bookmark b, User u) {
-    EntityManager em = emf.createEntityManager();
-    em.getTransaction().begin();
-    User user = em.find(User.class, u.getId());
-    b.setUser(user);
-    user.getBookmarks().add(b);
-    em.getTransaction().commit();
-  }
+//  public void saveBookmark(Bookmark b, User u) {
+//    EntityManager em = emf.createEntityManager();
+//    em.getTransaction().begin();
+//    User user = em.find(User.class, u.getId());
+//    b.setUser(user);
+//    em.persist(b);
+//    user.getBookmarks().add(b);
+//    em.getTransaction().commit();
+//  }
 }
