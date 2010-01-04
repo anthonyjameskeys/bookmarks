@@ -61,3 +61,8 @@ REST-like api: add servlet filter to look up user and insert into session based 
 Go back to userService in BookmarkController.  Return modified user from new addBookmark call. - Done
 
 UUID is 128 bits or 2^128.  hex encoded string: each character is 2^4. 16 hex char representation of the 64 most or least sig bits of a UUID is 2^64 because each char is half a byte.
+
+Next steps: Success page for adding a bookmark from the bookmarklet.
+            Login from cookie in servlet filter
+            Nested sessions?
+            Export bookmarks
