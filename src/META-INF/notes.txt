@@ -66,3 +66,5 @@ Next steps: Success page for adding a bookmark from the bookmarklet.
             Login from cookie in servlet filter
             Nested sessions?
             Export bookmarks
+            OpenID and JAAS?
+            Session timeout
