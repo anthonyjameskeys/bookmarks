@@ -44,11 +44,6 @@
         <exclude name="**/web.xml"/>
         <exclude name="**/*-servlet.xml"/>
       </fileset>
-<!--      <fileset dir="${basedir}/src/"/>-->
-      
-      <manifest>
-        <attribute name="Main-Class" value="${main.class}"/>
-      </manifest>
     </jar>
     <copy todir="${basedir}/lib/">
       <fileset dir="${basedir}/dist/">
@@ -72,7 +67,7 @@
         <include name="*.jar"/>
       </lib>
     </war>   
-    <copy tofile="/Users/anthony/glassfish/domains/domain1/autodeploy/bookmarks.war"
+    <copy tofile="${deploydir}/bookmarks.war"
           file="${basedir}/dist/bookmarks-${DSTAMP}${TSTAMP}.war"/>
   </target>
   
