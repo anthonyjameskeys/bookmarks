@@ -9,31 +9,40 @@ import java.util.ArrayList;
 import java.io.Serializable;
 
 @Entity
-@Table(name="users", uniqueConstraints={@UniqueConstraint(columnNames="name"), @UniqueConstraint(columnNames="apiKey"), 
+@Table(name="users", uniqueConstraints={@UniqueConstraint(columnNames="openIdIdentifier"), @UniqueConstraint(columnNames="apiKey"), 
                                         @UniqueConstraint(columnNames="emailAddress")})
 public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	int id;
+	private int id;
 
-  
-	String apiKey;
+  private String openIdIdentifier;
+	private String apiKey;
 
-	String name;
-	String emailAddress;
+	private String firstName;
+	private String lastName;
+	private String emailAddress;
 	
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	List<Bookmark> bookmarks = new ArrayList<Bookmark>();
 	
 	@Version 
-	int version;
+	private int version;
 	
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 	
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
+	}
+	
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	public String getLastName() {
+		return lastName;
 	}
 	
 	public void setEmailAddress(String emailAddress) {
@@ -49,7 +58,7 @@ public class User implements Serializable {
 	}
 	
 	public List<Bookmark> getBookmarks() {
-		return bookmarks;
+	  return bookmarks;
 	}
 	
 	public int getId() {
@@ -66,5 +75,13 @@ public class User implements Serializable {
 	
 	public String getApiKey() {
 	  return apiKey;
+	}
+	
+	public void setOpenIdIdentifier(String openIdIdentifier) {
+	  this.openIdIdentifier = openIdIdentifier;
+	}
+	
+	public String getOpenIdIdentifier() {
+	  return openIdIdentifier;
 	}
 }

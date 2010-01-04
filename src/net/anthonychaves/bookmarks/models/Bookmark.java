@@ -9,13 +9,13 @@ import java.io.Serializable;
 public class Bookmark implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	int id;
+	private int id;
 	
-	String url;
-	int hitCount;
+	private String url;
+	private int hitCount;
 	
 	@ManyToOne
-	User user;
+	private User user;
 	
 	public User getUser() {
 		return user;

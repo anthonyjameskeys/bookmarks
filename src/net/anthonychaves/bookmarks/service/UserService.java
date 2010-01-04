@@ -6,33 +6,46 @@ import org.springframework.stereotype.*;
 
 import net.anthonychaves.bookmarks.models.*;
 
+import java.util.*;
+
 @Service
 public class UserService {
   
   @PersistenceUnit(unitName="bookmarksPU")
   EntityManagerFactory emf;
   
-  public User findUser(String name) {
+  public User findUser(String openIdIdentifier) {
     EntityManager em = emf.createEntityManager();
-    Query query = em.createQuery("select u from User u where u.name = ?1")
-                    .setParameter(1, name);
-    em.getTransaction().begin();
-    User user = (User) query.getSingleResult();
-    em.getTransaction().rollback();
+    
+    User user = null;
+    try {
+      Query query = em.createQuery("select u from User u where u.openIdIdentifier = ?1")
+                      .setParameter(1, openIdIdentifier);
+      em.getTransaction().begin();
+      user = (User) query.getSingleResult();
+      em.getTransaction().rollback();
+    } catch (NoResultException e) {
+      user = null;
+    }
     return user;
   }
   
-  public void createUser(User user) {
+  public User createUser(User user) {
     EntityManager em = emf.createEntityManager();
     em.getTransaction().begin();
+    String apiKey = UUID.randomUUID().toString().replaceAll("-","").substring(0,16).toUpperCase();
+    user.setApiKey(apiKey);
     em.persist(user);
     em.getTransaction().commit();
+    
+    return user;
   }
   
   public User addBookmark(User user, Bookmark bookmark) {
     EntityManager em = emf.createEntityManager();
+
     em.getTransaction().begin();
-    User u = (User) em.find(User.class, user.getId());
+    User u = findUser(user.getOpenIdIdentifier());
     bookmark.setUser(u);
     em.persist(bookmark);
     u.getBookmarks().add(bookmark);
@@ -44,7 +57,7 @@ public class UserService {
   public User setApiKey(User user, String apiKey) {
     EntityManager em = emf.createEntityManager();
     em.getTransaction().begin();
-    User u = (User) em.find(User.class, user.getId());
+    User u = (User) em.find(User.class, user.getOpenIdIdentifier());
     u.setApiKey(apiKey);
     em.getTransaction().commit();
     
