@@ -8,6 +8,9 @@ import java.io.*;
 import net.anthonychaves.bookmarks.models.*;
 
 public class PersistentLoginFilter implements Filter {
+
+  @PersistenceUnit(unitName="bookmarksPU")
+  EntityManagerFactory emf;
   
   @Override
   public void init(FilterConfig config) {
