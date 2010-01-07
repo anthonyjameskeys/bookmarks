@@ -26,6 +26,7 @@ public class PersistentLoginFilter implements Filter {
                        FilterChain chain) throws IOException, ServletException {
     HttpServletRequest httpRequest = (HttpServletRequest) request;
     HttpServletResponse httpResponse = (HttpServletResponse) response;
+System.out.println("===================================== url: " + httpRequest.getRequestURL());    
     Cookie tokenCookie = getCookieByName(httpRequest.getCookies(), "bookmarksToken");
 
     HttpSession session = httpRequest.getSession();
