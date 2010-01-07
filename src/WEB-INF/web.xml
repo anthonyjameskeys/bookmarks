@@ -2,7 +2,7 @@
 	       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	       xsi:schemaLocation="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	       version="2.5">
-	       
+	
   <persistence-unit-ref>
     <persistence-unit-ref-name>persistence/bookmarksPU</persistence-unit-ref-name>
     <persistence-unit-name>bookmarksPU</persistence-unit-name>
@@ -29,5 +29,15 @@
   </servlet-mapping>
 
   <context-root>/bookmarks</context-root>
+
+	<filter>
+	  <filter-name>LoginTokenFilter</filter-name>
+	  <filter-class>net.anthonychaves.bookmarks.web.PersistentLoginFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+	  <filter-name>LoginTokenFilter</filter-name>
+	  <servlet-name>bookmarks</servlet-name>
+	</filter-mapping>
 
 </web-app>

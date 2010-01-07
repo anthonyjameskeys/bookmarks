@@ -5,7 +5,7 @@
     
     <class>net.anthonychaves.bookmarks.models.User</class>
     <class>net.anthonychaves.bookmarks.models.Bookmark</class>
-    <class>net.anthonychaves.bookmarks.models.PersistentLoginCookie</class>
+    <class>net.anthonychaves.bookmarks.models.PersistentLoginToken</class>
     
     <properties>
       <property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:3306/bookmarks"/> 
@@ -21,5 +21,6 @@
     <non-jta-data-source>jdbc/bookmarks</non-jta-data-source>
     <class>net.anthonychaves.bookmarks.models.User</class>
     <class>net.anthonychaves.bookmarks.models.Bookmark</class>
+    <class>net.anthonychaves.bookmarks.models.PersistentLoginToken</class>
   </persistence-unit>
 </persistence>

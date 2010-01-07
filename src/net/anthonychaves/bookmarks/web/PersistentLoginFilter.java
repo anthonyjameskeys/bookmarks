@@ -24,52 +24,81 @@ public class PersistentLoginFilter implements Filter {
   public void doFilter(ServletRequest request, 
                        ServletResponse response, 
                        FilterChain chain) throws IOException, ServletException {
-    HttpServletRequest httpRequest = getHttpServletRequest(request);
+    HttpServletRequest httpRequest = (HttpServletRequest) request;
+    HttpServletResponse httpResponse = (HttpServletResponse) response;
     Cookie tokenCookie = getCookieByName(httpRequest.getCookies(), "bookmarksToken");
-    
-    // not sure how this is going to look yet.  trying a "bad" implementation first, then refactoring
-    
-    // if there is a user in the session they are already logged in.  we can safely
-    // go on to the next resource in the filter chain
-    HttpSession session = request.getSession();
-    User user = session.getAttribute("user");
-    if (user != null) {
-      chain.doFilter
+
+    HttpSession session = httpRequest.getSession();
+    User user = (User) session.getAttribute("user");
+
+    if (user == null && tokenCookie != null) {
+      loginWithToken(tokenCookie, user, httpRequest);
+      tokenCookie.setMaxAge(0);
+      httpResponse.addCookie(tokenCookie);
+      tokenCookie = null;
     }
-    
-    // else if there is not a user in the session we look for the login token cookie
-    
-    // if there is no cookie the user has not been here before on this computer 
-    // (for certain definitions of "not been here before on this computer")
 
-    // if there is a cookie then put this user in the session, 
-    // expire the current login token and create a new one
-
-    EntityManager em = emf.createEntityManager();
-    em.getTransaction().begin();
-    //TODO might want to validate cookie value before doing this...
-    PersistentLoginCookie cookie = em.find(PersistentLoginCookie.class, tokenCookie.getValue());
-    em.getTransaction().commit();
-    
-    chain.doFilter(httpRequest, response);
+    if (user != null && tokenCookie == null) {
+      setupNewLoginToken(user, httpResponse);
+    }
+   
+    chain.doFilter(httpRequest, httpResponse);
   }
   
   @Override
   public void destroy() {
     // nothing for now
   }
-  
-  private HttpServletRequest getHttpServletRequest(ServletRequest request) throws ServletException {
-    HttpServletRequest servletRequest = null;
-    if (request instanceof HttpServletRequest) {
-      servletRequest = (HttpServletRequest) request;
+
+  private void loginWithToken(Cookie tokenCookie, User user, HttpServletRequest request) throws ServletException {
+    EntityManager em = emf.createEntityManager();
+    em.getTransaction().begin();
+    //TODO might want to validate cookie value before doing this...
+    PersistentLoginToken token = em.find(PersistentLoginToken.class, tokenCookie.getValue());
+    
+    if (token != null) {
+      request.getSession().setAttribute("user", token.getUser());
+      em.remove(token);
+      em.getTransaction().commit();
     } else {
-      throw new ServletException("Expected an instance of HttpServletRequest. Got " + request.getClass().toString());
+      em.getTransaction().rollback();
+      //TODO this is a forgery attempt
+      throw new ServletException("attempted cookie forgery");
     }
-    return servletRequest;
+    
   }
   
+  private void setupNewLoginToken(User user, HttpServletResponse response) {
+    PersistentLoginToken token = new PersistentLoginToken();
+
+    EntityManager em = emf.createEntityManager();
+    em.getTransaction().begin();
+    User u = em.find(User.class, user.getId());
+    token.setUser(u);
+    em.persist(token);
+    em.getTransaction().commit();
+    
+    Cookie cookie = new Cookie("bookmarksToken", token.getId());
+    cookie.setMaxAge(2678400);
+    response.addCookie(cookie);
+  }
+
+/*  
+  private Object getHttpClass(Object obj, Class clazz) throws ServletException {
+    HttpServletRequest castObj = null;
+    if (obj instanceof clazz) {
+      castObj = (clazz) obj;
+    } else {
+      throw new ServletException("Expected an instance of " + clazz.toString() + " . Got " + obj.getClass().toString());
+    }
+    return castObj;
+  }
+*/  
   private Cookie getCookieByName(Cookie[] cookies, String name) {
+    if (cookies == null || cookies.length == 0) {
+      return null;
+    }
+    
     Map<String,Cookie> cookieMap = new HashMap<String,Cookie>();
     for (int i=0; i < cookies.length; i++) {
       Cookie cookie = cookies[i];
