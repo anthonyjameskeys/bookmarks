@@ -68,3 +68,5 @@ Next steps: Success page for adding a bookmark from the bookmarklet.
             Export bookmarks
             OpenID and JAAS?
             Session timeout
+
+What license is this project?  BSD? MIT? GPL?

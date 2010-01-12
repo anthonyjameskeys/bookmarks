@@ -26,7 +26,6 @@ public class PersistentLoginFilter implements Filter {
                        FilterChain chain) throws IOException, ServletException {
     HttpServletRequest httpRequest = (HttpServletRequest) request;
     HttpServletResponse httpResponse = (HttpServletResponse) response;
-System.out.println("===================================== url: " + httpRequest.getRequestURL());    
     Cookie tokenCookie = getCookieByName(httpRequest.getCookies(), "bookmarksToken");
 
     HttpSession session = httpRequest.getSession();
@@ -54,7 +53,6 @@ System.out.println("===================================== url: " + httpRequest.g
   private void loginWithToken(Cookie tokenCookie, User user, HttpServletRequest request) throws ServletException {
     EntityManager em = emf.createEntityManager();
     em.getTransaction().begin();
-    //TODO might want to validate cookie value before doing this...
     PersistentLoginToken token = em.find(PersistentLoginToken.class, tokenCookie.getValue());
     
     if (token != null) {
@@ -64,7 +62,7 @@ System.out.println("===================================== url: " + httpRequest.g
     } else {
       em.getTransaction().rollback();
       //TODO this is a forgery attempt
-      throw new ServletException("attempted cookie forgery");
+      throw new ServletException("Attempted login token cookie forgery");
     }
     
   }
@@ -80,21 +78,10 @@ System.out.println("===================================== url: " + httpRequest.g
     em.getTransaction().commit();
     
     Cookie cookie = new Cookie("bookmarksToken", token.getId());
-    cookie.setMaxAge(2678400);
+    cookie.setMaxAge(14400);
     response.addCookie(cookie);
   }
 
-/*  
-  private Object getHttpClass(Object obj, Class clazz) throws ServletException {
-    HttpServletRequest castObj = null;
-    if (obj instanceof clazz) {
-      castObj = (clazz) obj;
-    } else {
-      throw new ServletException("Expected an instance of " + clazz.toString() + " . Got " + obj.getClass().toString());
-    }
-    return castObj;
-  }
-*/  
   private Cookie getCookieByName(Cookie[] cookies, String name) {
     if (cookies == null || cookies.length == 0) {
       return null;

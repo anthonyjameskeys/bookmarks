@@ -3,7 +3,7 @@ package net.anthonychaves.bookmarks.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name="persistentLoginToken")
+@Table(name="persistentLoginTokens")
 public class PersistentLoginToken {
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO, generator="uuid-hex")
