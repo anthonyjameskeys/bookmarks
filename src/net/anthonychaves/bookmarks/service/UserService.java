@@ -14,13 +14,13 @@ public class UserService {
   @PersistenceUnit(unitName="bookmarksPU")
   EntityManagerFactory emf;
   
-  public User findUser(String openIdIdentifier) {
+  public User findUser(String emailAddress) {
     EntityManager em = emf.createEntityManager();
     
     User user = null;
     try {
-      Query query = em.createQuery("select u from User u where u.openIdIdentifier = ?1")
-                      .setParameter(1, openIdIdentifier);
+      Query query = em.createQuery("select u from User u where u.emailAddress = ?1")
+                      .setParameter(1, emailAddress);
       em.getTransaction().begin();
       user = (User) query.getSingleResult();
       em.getTransaction().rollback();
@@ -45,7 +45,7 @@ public class UserService {
     EntityManager em = emf.createEntityManager();
 
     em.getTransaction().begin();
-    User u = findUser(user.getOpenIdIdentifier());
+    User u = findUser(user.getEmailAddress());
     bookmark.setUser(u);
     em.persist(bookmark);
     u.getBookmarks().add(bookmark);

@@ -72,10 +72,19 @@ public class OpenIdController {
 
       if (verified != null) {
         // success, use the verified identifier to identify the user
-        User user = userService.findUser(verified.getIdentifier());
+        String[] attributes = inspectOpenIdMessage(verification);
+        User user = userService.findUser(attributes[0]);
+
         if (user == null) {
-          user = createUserFromOpenIdMessage(verification);
+          user = new User();
+          
+          user.setEmailAddress(attributes[0]);
+          user.setFirstName(attributes[1]);
+          user.setLastName(attributes[2]);
+          
+          user = userService.createUser(user);
         }
+
         session.setAttribute("user", user);
         return "redirect:/b/user";
       } else {
@@ -87,21 +96,14 @@ public class OpenIdController {
     }
   }
   
-  private User createUserFromOpenIdMessage(VerificationResult verification) throws MessageException {
-    User user = new User();
-    
+  private String[] inspectOpenIdMessage(VerificationResult verification) throws MessageException {
     AuthSuccess success = (AuthSuccess) verification.getAuthResponse();
     FetchResponse response = (FetchResponse) success.getExtension(AxMessage.OPENID_NS_AX);
     String emailAddress = response.getAttributeValue("email");
     String firstName = response.getAttributeValue("firstName");
     String lastName = response.getAttributeValue("lastName");
     
-    user.setOpenIdIdentifier(verification.getVerifiedId().getIdentifier());
-    user.setFirstName(firstName);
-    user.setLastName(lastName);
-    user.setEmailAddress(emailAddress);
-    
-    return userService.createUser(user);
+    return new String[] {emailAddress, firstName, lastName};
   }
   
   public void setReturnUrl(String returnUrl) {
