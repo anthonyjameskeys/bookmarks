@@ -60,6 +60,22 @@ public class UserController {
     return "redirect:/b/user";
 	}
 	
+	@RequestMapping(method=RequestMethod.POST, value="/rememberMe")
+  public String rememberMe(@RequestParam("durationHours") int duration, 
+                          HttpSession session, 
+                          HttpServletResponse response) {
+    User user = (User) session.getAttribute("user");
+    String tokenId = userService.setupNewLoginToken(user);
+    
+    Cookie cookie = new Cookie("loginToken", tokenId);
+    cookie.setMaxAge(duration * 60 * 60);
+    cookie.setPath("/bookmarks/b/");
+    response.addCookie(cookie);
+    
+    return "redirect:/b/user";
+  }
+
+	
 	public void setUserService(UserService userService) {
 	  this.userService = userService;
 	}

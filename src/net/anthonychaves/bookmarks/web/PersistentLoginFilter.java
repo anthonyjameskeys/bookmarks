@@ -26,7 +26,7 @@ public class PersistentLoginFilter implements Filter {
                        FilterChain chain) throws IOException, ServletException {
     HttpServletRequest httpRequest = (HttpServletRequest) request;
     HttpServletResponse httpResponse = (HttpServletResponse) response;
-    Cookie tokenCookie = getCookieByName(httpRequest.getCookies(), "bookmarksToken");
+    Cookie tokenCookie = getCookieByName(httpRequest.getCookies(), "loginToken");
 
     HttpSession session = httpRequest.getSession();
     User user = (User) session.getAttribute("user");
@@ -36,10 +36,6 @@ public class PersistentLoginFilter implements Filter {
       tokenCookie.setMaxAge(0);
       httpResponse.addCookie(tokenCookie);
       tokenCookie = null;
-    }
-
-    if (user != null && tokenCookie == null) {
-      setupNewLoginToken(user, httpResponse);
     }
    
     chain.doFilter(httpRequest, httpResponse);
@@ -65,21 +61,6 @@ public class PersistentLoginFilter implements Filter {
       throw new ServletException("Attempted login token cookie forgery");
     }
     
-  }
-  
-  private void setupNewLoginToken(User user, HttpServletResponse response) {
-    PersistentLoginToken token = new PersistentLoginToken();
-
-    EntityManager em = emf.createEntityManager();
-    em.getTransaction().begin();
-    User u = em.find(User.class, user.getId());
-    token.setUser(u);
-    em.persist(token);
-    em.getTransaction().commit();
-    
-    Cookie cookie = new Cookie("bookmarksToken", token.getId());
-    cookie.setMaxAge(14400);
-    response.addCookie(cookie);
   }
 
   private Cookie getCookieByName(Cookie[] cookies, String name) {
