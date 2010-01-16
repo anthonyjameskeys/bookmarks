@@ -10,7 +10,7 @@ You can generate an API token.  Your current API token is: ${user.apiKey}
 
 <br/>
 <form:form action="/bookmarks/b/user/rememberMe">
-  Remember me for <input type="text" width="2" name="durationHours"/> hours.
+  Remember me for 1 week.
   <input type="submit" value="Remember me"/>
 </form:form>
 <p>

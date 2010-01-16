@@ -3,6 +3,17 @@
 	       xsi:schemaLocation="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	       version="2.5">
 	
+  <context-root>/bookmarks</context-root>
+
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/bookmarks-servlet.xml</param-value>
+  </context-param>
+
+  <listener> 
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
   <persistence-unit-ref>
     <persistence-unit-ref-name>persistence/bookmarksPU</persistence-unit-ref-name>
     <persistence-unit-name>bookmarksPU</persistence-unit-name>
@@ -28,15 +39,13 @@
     <url-pattern>/jcaptcha</url-pattern>
   </servlet-mapping>
 
-  <context-root>/bookmarks</context-root>
-
 	<filter>
-	  <filter-name>LoginTokenFilter</filter-name>
-	  <filter-class>net.anthonychaves.bookmarks.web.PersistentLoginFilter</filter-class>
+	  <filter-name>persistentLoginFilter</filter-name>
+	  <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
-	
+
 	<filter-mapping>
-	  <filter-name>LoginTokenFilter</filter-name>
+	  <filter-name>persistentLoginFilter</filter-name>
 	  <servlet-name>bookmarks</servlet-name>
 	</filter-mapping>
 

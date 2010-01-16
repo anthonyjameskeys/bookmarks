@@ -14,19 +14,6 @@ public class UserService {
   @PersistenceUnit(unitName="bookmarksPU")
   EntityManagerFactory emf;
   
-  public String setupNewLoginToken(User user) {
-    PersistentLoginToken token = new PersistentLoginToken();
-
-    EntityManager em = emf.createEntityManager();
-    em.getTransaction().begin();
-    User u = em.find(User.class, user.getId());
-    token.setUser(u);
-    em.persist(token);
-    em.getTransaction().commit();
-    
-    return token.getId();
-  }
-  
   public User findUser(String emailAddress) {
     EntityManager em = emf.createEntityManager();
     

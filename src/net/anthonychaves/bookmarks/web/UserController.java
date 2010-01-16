@@ -21,6 +21,9 @@ public class UserController {
 	UserService userService;
 	
 	@Autowired
+	TokenService tokenService;
+	
+	@Autowired
 	ImageCaptchaService icservice;
 	
 	@RequestMapping(value="/new", method=RequestMethod.GET)
@@ -61,11 +64,11 @@ public class UserController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/rememberMe")
-  public String rememberMe(@RequestParam("durationHours") int duration, 
-                          HttpSession session, 
-                          HttpServletResponse response) {
+  public String rememberMe(HttpSession session, 
+                           HttpServletResponse response) {
+    int duration = 168; //hours to remember me for = 1 week
     User user = (User) session.getAttribute("user");
-    String tokenId = userService.setupNewLoginToken(user);
+    String tokenId = tokenService.setupNewLoginToken(user);
     
     Cookie cookie = new Cookie("loginToken", tokenId);
     cookie.setMaxAge(duration * 60 * 60);
@@ -78,5 +81,9 @@ public class UserController {
 	
 	public void setUserService(UserService userService) {
 	  this.userService = userService;
+	}
+	
+	public void setTokenService(TokenService tokenService) {
+	  this.tokenService = tokenService;
 	}
 }
