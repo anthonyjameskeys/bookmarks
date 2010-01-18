@@ -33,6 +33,7 @@
       <fileset dir="${basedir}/src/">
         <include name="*-INF/**"/>
         <include name="img/*"/>
+        <include name="*.jsp"/>
       </fileset>
     </copy>
   </target>
