@@ -15,7 +15,7 @@ You can generate an API token.  Your current API token is: ${user.apiKey}
 </form:form>
 <p>
   You can drag this link to your bookmarks toolbar for quick bookmarking:
-  <a href="javascript:(function(){url=encodeURI(window.location);targetUrl='http://bookmarks.anthonychaves.net:8080/bookmarks/b/bookmarks/new?url='+url;window.open(targetUrl,'QuickBookmark','width=400,height=400,location=yes,links=no,toolbar=no');})()">Quick bookmark</a>
+  <a href="javascript:(function(){url=encodeURI(document.location);targetUrl='http://${pageContext.request.serverName}:8080/bookmarks/b/bookmarks/new?url='+url+'&title='+document.title;window.open(targetUrl,'QuickBookmark','width=400,height=400,location=yes,links=no,toolbar=no');})()">Quick bookmark</a>
 </p>
 
 <jsp:include page="/b/bookmarks/new"/>

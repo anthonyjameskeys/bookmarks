@@ -19,15 +19,30 @@ public class BookmarkController {
   UserService userService;
 
 	@RequestMapping(method=RequestMethod.POST)
-	public String addBookmark(@ModelAttribute("bookmark") Bookmark bookmark, HttpSession session) {
+	public String addBookmark(@ModelAttribute("bookmark") Bookmark bookmark,
+	                          HttpSession session) {
+
     User u = (User) session.getAttribute("user");
     Bookmark b = new Bookmark();
     // might help to validate url here...
     b.setUrl(bookmark.getUrl());
-    
+    b.setTitle(bookmark.getTitle());
+    b.setTags(bookmark.getTags());
+
     User user = userService.addBookmark(u, b);
     session.setAttribute("user", user);
     return "redirect:user";
+	}
+	
+	@RequestMapping(value="/deleteBookmark", method=RequestMethod.POST)
+	public String deleteBookmark(@RequestParam(value="bookmarkId") String bookmarkId,
+	                             HttpSession session) {
+
+	  User user = (User) session.getAttribute("user");
+	  user = userService.deleteBookmark(user, bookmarkId);
+	  session.setAttribute("user", user);
+
+	  return "redirect:/b/user";
 	}
 
   @RequestMapping(method=RequestMethod.GET)

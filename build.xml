@@ -32,6 +32,7 @@
     <copy todir="${basedir}/build">
       <fileset dir="${basedir}/src/">
         <include name="*-INF/**"/>
+        <include name="img/*"/>
       </fileset>
     </copy>
   </target>

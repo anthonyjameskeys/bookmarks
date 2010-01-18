@@ -42,7 +42,11 @@ public class PersistentLoginFilter implements Filter {
       String tokenValue = tokenService.setupNewLoginToken(user);
       
       httpRequest.getSession().setAttribute("user", user);
-      tokenCookie.setValue(tokenValue);
+      tokenCookie.setMaxAge(0);
+      httpResponse.addCookie(tokenCookie);
+      
+      tokenCookie = new Cookie("loginToken", tokenValue);
+      tokenCookie.setPath("/bookmarks");
       tokenCookie.setMaxAge(168 * 60 * 60);
       httpResponse.addCookie(tokenCookie);
     }

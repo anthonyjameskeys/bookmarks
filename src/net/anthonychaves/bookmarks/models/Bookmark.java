@@ -13,9 +13,12 @@ public class Bookmark implements Serializable {
 	
 	private String url;
 	private int hitCount;
+	private String title;
 	
 	@ManyToOne
 	private User user;
+	
+	private String tags;
 	
 	public User getUser() {
 		return user;
@@ -47,5 +50,21 @@ public class Bookmark implements Serializable {
 	
 	public void setHitCount(int hitCount) {
 		this.hitCount = hitCount;
+	}
+	
+	public void setTitle(String title) {
+	  this.title = title;
+	}
+	
+	public String getTitle() {
+	  return title;
+	}
+	
+	public void setTags(String tags) {
+	  this.tags = tags;
+	}
+	
+	public String getTags() {
+	  return tags;
 	}
 }

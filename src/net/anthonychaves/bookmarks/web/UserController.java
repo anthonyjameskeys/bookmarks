@@ -52,7 +52,6 @@ public class UserController {
 	  if (session == null || session.getAttribute("user") == null) {
 	    return "redirect:/b/user/new";
 	  }
-	  User user = (User)session.getAttribute("user");
 	  return "user";
 	}
 	
@@ -72,7 +71,7 @@ public class UserController {
     
     Cookie cookie = new Cookie("loginToken", tokenId);
     cookie.setMaxAge(duration * 60 * 60);
-    cookie.setPath("/bookmarks/b/");
+    cookie.setPath("/bookmarks");
     response.addCookie(cookie);
     
     return "redirect:/b/user";

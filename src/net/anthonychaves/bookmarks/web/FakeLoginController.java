@@ -21,7 +21,7 @@ public class FakeLoginController {
   @RequestMapping(method=RequestMethod.POST)
   public String fakeLogin(HttpSession session, @RequestParam("username") String username) {
     EntityManager em = emf.createEntityManager();
-    Query q = em.createQuery("select u from User u where u.name = ?1")
+    Query q = em.createQuery("select u from User u where u.firstName = ?1")
                 .setParameter(1, username);
                 
     User u = (User) q.getSingleResult();

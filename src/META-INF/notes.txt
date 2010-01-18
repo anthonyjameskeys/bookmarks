@@ -70,3 +70,7 @@ Next steps: Success page for adding a bookmark from the bookmarklet.
             Session timeout
 
 What license is this project?  BSD? MIT? GPL?
+
+Page title, bookmark tags, lists?
+
+Deleting a bookmark has a bug but I'm so tired I can't see the screen anymore to fix it...

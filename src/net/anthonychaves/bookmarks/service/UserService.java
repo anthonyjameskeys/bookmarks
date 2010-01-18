@@ -54,10 +54,25 @@ public class UserService {
     return u;
   }
   
+  public User deleteBookmark(User user, String bookmarkId) {
+    EntityManager em = emf.createEntityManager();
+    em.getTransaction().begin();
+    Bookmark bookmark = (Bookmark) em.find(Bookmark.class, bookmarkId);
+    if (user.getId() != bookmark.getUser().getId()) {
+      throw new RuntimeException("user ids don't match when deleting a bookmark");
+    }
+    em.remove(bookmark);
+    em.flush();
+    User u = (User) em.find(User.class, user.getId());
+    em.getTransaction().commit();
+    
+    return u;
+  }
+  
   public User setApiKey(User user, String apiKey) {
     EntityManager em = emf.createEntityManager();
     em.getTransaction().begin();
-    User u = (User) em.find(User.class, user.getOpenIdIdentifier());
+    User u = (User) em.find(User.class, user.getId());
     u.setApiKey(apiKey);
     em.getTransaction().commit();
     

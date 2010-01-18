@@ -6,7 +6,18 @@ You have ${fn:length(user.bookmarks)} bookmarks.
 <c:choose>
   <c:when test="${fn:length(user.bookmarks) > 0}">
     <c:forEach var="bookmark" items="${user.bookmarks}">
-      <a href="${bookmark.url}">${bookmark.url}</a><br/>
+      <div id="bookmark_container">
+        <div id="bookmark_buttons">
+          <form action="/bookmarks/b/bookmarks/deleteBookmark" method="post">
+            <input type="hidden" name="bookmarkId" value="${bookmark.id}"/>
+            <input type="submit" style="background: url(http://${pageContext.request.serverName}:8080/bookmarks/img/minus.png) 0 0 no-repeat; font-size: 0; border: none; width: 32px; height: 32px;"/>
+          </form>
+        </div>
+        <div id="bookmark_content">
+          <a href="${bookmark.url}">${bookmark.title}</a><br/>
+          ${bookmark.tags}<br/>
+        </div>
+      </div>
     </c:forEach>
   </c:when>
   <c:otherwise>
