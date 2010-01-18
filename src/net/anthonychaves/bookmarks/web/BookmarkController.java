@@ -31,16 +31,16 @@ public class BookmarkController {
 
     User user = userService.addBookmark(u, b);
     session.setAttribute("user", user);
-    return "redirect:user";
+    session.setAttribute("latestBookmark", b);
+    return "add_bookmark_success";
 	}
 	
-	@RequestMapping(value="/deleteBookmark", method=RequestMethod.POST)
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public String deleteBookmark(@RequestParam(value="bookmarkId") String bookmarkId,
 	                             HttpSession session) {
 
 	  User user = (User) session.getAttribute("user");
-	  user = userService.deleteBookmark(user, bookmarkId);
-	  session.setAttribute("user", user);
+	  userService.deleteBookmark(user, bookmarkId);
 
 	  return "redirect:/b/user";
 	}

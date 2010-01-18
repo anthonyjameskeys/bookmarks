@@ -20,6 +20,11 @@ public class Bookmark implements Serializable {
 	
 	private String tags;
 	
+	@PreRemove
+	public void preRemove() {
+	  setUser(null);
+	}
+	
 	public User getUser() {
 		return user;
 	}

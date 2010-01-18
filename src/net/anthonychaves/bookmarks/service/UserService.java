@@ -14,6 +14,13 @@ public class UserService {
   @PersistenceUnit(unitName="bookmarksPU")
   EntityManagerFactory emf;
   
+  public User findUser(int id) {
+    EntityManager em = emf.createEntityManager();
+    em.getTransaction().begin();
+    User user = (User) em.find(User.class, id);
+    em.getTransaction().commit();
+    return user;
+  }
   public User findUser(String emailAddress) {
     EntityManager em = emf.createEntityManager();
     
@@ -54,7 +61,7 @@ public class UserService {
     return u;
   }
   
-  public User deleteBookmark(User user, String bookmarkId) {
+  public void deleteBookmark(User user, String bookmarkId) {
     EntityManager em = emf.createEntityManager();
     em.getTransaction().begin();
     Bookmark bookmark = (Bookmark) em.find(Bookmark.class, bookmarkId);
@@ -62,11 +69,7 @@ public class UserService {
       throw new RuntimeException("user ids don't match when deleting a bookmark");
     }
     em.remove(bookmark);
-    em.flush();
-    User u = (User) em.find(User.class, user.getId());
     em.getTransaction().commit();
-    
-    return u;
   }
   
   public User setApiKey(User user, String apiKey) {

@@ -63,14 +63,15 @@ Go back to userService in BookmarkController.  Return modified user from new add
 UUID is 128 bits or 2^128.  hex encoded string: each character is 2^4. 16 hex char representation of the 64 most or least sig bits of a UUID is 2^64 because each char is half a byte.
 
 Next steps: Success page for adding a bookmark from the bookmarklet.
-            Login from cookie in servlet filter
-            Nested sessions?
             Export bookmarks
             OpenID and JAAS?
-            Session timeout
 
 What license is this project?  BSD? MIT? GPL?
 
-Page title, bookmark tags, lists?
+Let the user create lists of bookmarks?  Or are tags good enough?
 
-Deleting a bookmark has a bug but I'm so tired I can't see the screen anymore to fix it...
+Done 2010-01-10-ish - Login from cookie in servlet filter
+Done 2010-01-17 - Page title, bookmark tags
+Done 2010-01-18 - Deleting a bookmark has a bug but I'm so tired I can't see the screen anymore to fix it...
+Session timeout - not really an issue.  Sessions timeouts are configured in the app server. Why did I put this on the list?
+Nested sessions - again, why is this on the list?

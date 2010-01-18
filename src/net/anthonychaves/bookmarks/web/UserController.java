@@ -52,6 +52,9 @@ public class UserController {
 	  if (session == null || session.getAttribute("user") == null) {
 	    return "redirect:/b/user/new";
 	  }
+	  User user = (User) session.getAttribute("user");
+	  user = userService.findUser(user.getId());
+	  session.setAttribute("user", user);
 	  return "user";
 	}
 	
