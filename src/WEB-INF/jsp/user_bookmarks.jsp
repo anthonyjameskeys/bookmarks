@@ -14,7 +14,7 @@ You have ${fn:length(user.bookmarks)} bookmarks.
           </form>
         </div>
         <div id="bookmark_content">
-          <a href="${bookmark.url}">${bookmark.title}</a><br/>
+          <a href="${bookmark.url}">${bookmark.url}</a><br/>
           ${bookmark.tags}<br/>
         </div>
       </div>
