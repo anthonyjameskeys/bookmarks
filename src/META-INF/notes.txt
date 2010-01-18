@@ -41,8 +41,15 @@ How do I revert a file to its pre-edit state with git?  I do not want to check i
 UUID is 128 bits or 2^128.  hex encoded string: each character is 2^4. 16 hex char representation of the 64 most or least sig bits of a UUID is 2^64 because each char is half a byte.
 
 Next steps: Apache/AJP
-            Export bookmarks
-
+            Import/Export bookmarks
+            Real tags
+            Public/private
+            Featured user
+            Trending links
+            Trending domains
+            Save audio/video
+            Cache page content
+            Display image of page in list
 
 Done 2010-01-10-ish - Login from cookie in servlet filter
 Done 2010-01-17 - Page title, bookmark tags
