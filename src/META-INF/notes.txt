@@ -7,20 +7,10 @@ Spring - look up data source via aliased name?  probably not because...
 persistence.xml - knows data source name
 Spring - just use EntityManager based on persistence unit defined in persistence.xml
 
-
 git - get last commit details command?
 git log --summary -1
 
-OpenJPA - how do we load/update schema based on entity definitions?
-- with the MappingTool and its Ant task!
-
-Set up sun-web.xml with persistence unit and persistence context refs.  Use Spring PersistenceAnnotationBeanPostProcessor and reference the contexts defined in sun-web.xml
-
 Blog entry: what's the difference between Spring EntityManager subclass and GlassFish EntityManager implementation and management?  Spring provides a thread-safe subclass or wrapper. How does GlassFish do it?  Is it thread safe?
-
-Video encoding - each process has 2 threads: one for transcode, one to monitor and report to database.
-
-implement "that user name already exists, that email address is already in use" - Don't need to do this because we're using open id now.
 
 Is openid.identity permanent?  Does this token change?  Is it ok to use this as unique user id in webapp? - This is not permanent.  
 
@@ -28,9 +18,7 @@ How do we open a new window for authentication instead of using a redirect?
 
 ConsumerManager must be static or singleton - how do we route back to the same one in a cluster?
 
-Error messages for login
-
-Web API access - servlet filter to translate API token into user session, set session/user for rest of the request. Transparent access and use the same API
+REST-like api: add servlet filter to look up user and insert into session based on token provided in api call.  return json or xml instead of forwarding to jsp
 
 WebKit page screen shots when adding bookmark
 
@@ -50,19 +38,11 @@ How do I revert a file to its pre-edit state with git?  I do not want to check i
 
 @GeneratedValue id won't merge: https://issues.apache.org/jira/browse/OPENJPA-673
 
-Merging User stored in HttpSession - user instance seems like a new instance, not detached.  Need to find by id, then save - I really don't like how this works, but it is what it is.
-
-REST-like api: add servlet filter to look up user and insert into session based on token provided in api call.  return json or xml instead of forwarding to jsp
-
 UUID is 128 bits or 2^128.  hex encoded string: each character is 2^4. 16 hex char representation of the 64 most or least sig bits of a UUID is 2^64 because each char is half a byte.
 
 Next steps: 
             Export bookmarks
             OpenID and JAAS?
-
-What license is this project?  BSD? MIT? GPL?
-
-Let the user create lists of bookmarks?  Or are tags good enough?
 
 Done 2010-01-10-ish - Login from cookie in servlet filter
 Done 2010-01-17 - Page title, bookmark tags
