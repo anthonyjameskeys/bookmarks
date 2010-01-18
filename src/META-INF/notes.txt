@@ -20,13 +20,9 @@ Blog entry: what's the difference between Spring EntityManager subclass and Glas
 
 Video encoding - each process has 2 threads: one for transcode, one to monitor and report to database.
 
-Need JCaptcha for signup and CSRFGuard for CSRF protection.  How do we create an API with CSRFGuard?
+implement "that user name already exists, that email address is already in use" - Don't need to do this because we're using open id now.
 
-Service layer - replace persistence units in controllers with service layer - UserService, BookmarkService
-
-implement "that user name already exists, that email address is already in use"
-
-Is openid.identity permanent?  Does this token change?  Is it ok to use this as unique user id in webapp?
+Is openid.identity permanent?  Does this token change?  Is it ok to use this as unique user id in webapp? - This is not permanent.  
 
 How do we open a new window for authentication instead of using a redirect?
 
@@ -58,11 +54,9 @@ Merging User stored in HttpSession - user instance seems like a new instance, no
 
 REST-like api: add servlet filter to look up user and insert into session based on token provided in api call.  return json or xml instead of forwarding to jsp
 
-Go back to userService in BookmarkController.  Return modified user from new addBookmark call. - Done
-
 UUID is 128 bits or 2^128.  hex encoded string: each character is 2^4. 16 hex char representation of the 64 most or least sig bits of a UUID is 2^64 because each char is half a byte.
 
-Next steps: Success page for adding a bookmark from the bookmarklet.
+Next steps: 
             Export bookmarks
             OpenID and JAAS?
 
@@ -75,3 +69,4 @@ Done 2010-01-17 - Page title, bookmark tags
 Done 2010-01-18 - Deleting a bookmark has a bug but I'm so tired I can't see the screen anymore to fix it...
 Session timeout - not really an issue.  Sessions timeouts are configured in the app server. Why did I put this on the list?
 Nested sessions - again, why is this on the list?
+Success page for adding a bookmark from the bookmarklet.
