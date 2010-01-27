@@ -1,7 +1,3 @@
-package net.anthonychaves.bookmarks.service;
-
-import net.anthonychaves.bookmarks.models.*;
-
 /**
   Copyright 2010 Anthony Chaves
   
@@ -20,6 +16,10 @@ import net.anthonychaves.bookmarks.models.*;
   You should have received a copy of the GNU General Public License
   along with Bookmarks.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+package net.anthonychaves.bookmarks.service;
+
+import net.anthonychaves.bookmarks.models.*;
 
 import org.springframework.stereotype.*;
 
