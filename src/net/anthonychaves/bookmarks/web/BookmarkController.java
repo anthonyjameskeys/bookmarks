@@ -36,6 +36,9 @@ public class BookmarkController {
 
   @Autowired
   UserService userService;
+  
+  @Autowired
+  RedisService redisService;
 
 	@RequestMapping(method=RequestMethod.POST)
 	public String addBookmark(@ModelAttribute("bookmark") Bookmark bookmark,
@@ -49,6 +52,7 @@ public class BookmarkController {
     b.setTags(bookmark.getTags());
 
     User user = userService.addBookmark(u, b);
+    redisService.addTags(b);
     session.setAttribute("user", user);
     session.setAttribute("latestBookmark", b);
     return "redirect:/b/bookmarks/add_bookmark_success";
@@ -82,5 +86,9 @@ public class BookmarkController {
 	
 	public void setUserService(UserService userService) {
 	  this.userService = userService;
+	}
+	
+	public void setRedisService(RedisService redisService) {
+	  this.redisService = redisService;
 	}
 }
