@@ -24,6 +24,8 @@ import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.beans.factory.annotation.*;
 
+import javax.servlet.http.*;
+
 import net.anthonychaves.bookmarks.models.*;
 import net.anthonychaves.bookmarks.service.*;
 
