@@ -49,16 +49,14 @@ public class RedisService {
     try {
       while (st.hasMoreTokens()) {
         String token = st.nextToken();
-        System.out.println("before token: " + token + " bookmark: " + bookmark.getId());
         jredis.lpush(token, bookmark.getId());
-        System.out.println("just put token: " + token + " bookmark: " + bookmark.getId());
       }
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
   
-  public List<Bookmark> findBookmarksByTag(String tag, User user) {
+  public List<BookmarkDetail> findBookmarksByTag(String tag, User user) {
     List<byte[]> bookmarkIds = new ArrayList<byte[]>();
     try {
       bookmarkIds = jredis.lrange(tag, 0, 50000);
@@ -69,10 +67,10 @@ public class RedisService {
     EntityManager em = emf.createEntityManager();
     em.getTransaction().begin();
     User u = em.find(User.class, user.getId());
-    javax.persistence.Query query = em.createQuery("select b from Bookmark b where b.id in (:ids) and b.user = :user")
+    javax.persistence.Query query = em.createQuery("select new net.anthonychaves.bookmarks.models.BookmarkDetail(b.id, b.title, b.url, b.hitCount) from Bookmark b where b.id in (:ids) and b.user = :user")
                     .setParameter("ids", bookmarkIds)
                     .setParameter("user", u);
-    List<Bookmark> bookmarks = (List<Bookmark>) query.getResultList();
+    List<BookmarkDetail> bookmarks = (List<BookmarkDetail>) query.getResultList();
     em.getTransaction().rollback();
     
     return bookmarks;

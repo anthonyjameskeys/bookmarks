@@ -42,7 +42,7 @@ public class TagController {
   public String getBookmarksWithTag(@RequestParam(value="tag") String tag, HttpSession session, ModelMap model) {
     User user = (User) session.getAttribute("user");
 
-    List<Bookmark> bookmarks = redisService.findBookmarksByTag(tag, user);
+    List<BookmarkDetail> bookmarks = redisService.findBookmarksByTag(tag, user);
     List<String> suggestedTags = redisService.findRelatedTags(tag);
     
     model.addAttribute("bookmarks", bookmarks);

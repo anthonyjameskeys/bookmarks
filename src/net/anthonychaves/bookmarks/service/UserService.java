@@ -68,7 +68,6 @@ public class UserService {
   }
   
   public User addBookmark(User user, Bookmark bookmark) {
-    try {
     EntityManager em = emf.createEntityManager();
 
     em.getTransaction().begin();
@@ -77,11 +76,8 @@ public class UserService {
     em.persist(bookmark);
     u.getBookmarks().add(bookmark);
     em.getTransaction().commit();
+
     return u;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return null;
   }
   
   public void deleteBookmark(User user, String bookmarkId) {
