@@ -41,6 +41,7 @@ How do I revert a file to its pre-edit state with git?  I do not want to check i
 UUID is 128 bits or 2^128.  hex encoded string: each character is 2^4. 16 hex char representation of the 64 most or least sig bits of a UUID is 2^64 because each char is half a byte.
 
 Next steps: Apache/AJP
+            Cleanup Mysql data source stuff and apache commons dbcp config
             Import/Export bookmarks
             Public/private
             Featured user
@@ -63,3 +64,4 @@ Session timeout - not really an issue.  Sessions timeouts are configured in the 
 Nested sessions - again, why is this on the list?
 Success page for adding a bookmark from the bookmarklet.
 Done 2010-01-30 - Real tags using Redis
+2010-01-31 - Had to change deployment to Tomcat because MappingJackson* doesn't work at all in Glassfish.  Tremendous waste of time.  

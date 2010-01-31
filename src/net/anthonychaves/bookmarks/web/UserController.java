@@ -27,8 +27,6 @@ import org.springframework.beans.factory.annotation.*;
 import javax.persistence.*;
 import javax.servlet.http.*;
 
-import com.octo.captcha.service.image.ImageCaptchaService;
-
 import net.anthonychaves.bookmarks.models.*;
 import net.anthonychaves.bookmarks.service.*;
 
@@ -41,16 +39,13 @@ public class UserController {
 	
 	@Autowired
 	TokenService tokenService;
-	
-	@Autowired
-	ImageCaptchaService icservice;
-	
+
 	@RequestMapping(value="/new", method=RequestMethod.GET)
 	public String newUser(ModelMap model) {
 		model.addAttribute(new User());
 		return "user_new";
 	}
-	
+/*	
 	@RequestMapping(method=RequestMethod.POST)
 	public String createUser(@ModelAttribute("user") User user, 
 							 HttpSession session, 
@@ -65,7 +60,7 @@ public class UserController {
 			return "redirect:/b/user/new";
 		}
 	}
-	
+*/	
 	@RequestMapping(method=RequestMethod.GET)
 	public String user(HttpSession session) {
 	  if (session == null || session.getAttribute("user") == null) {

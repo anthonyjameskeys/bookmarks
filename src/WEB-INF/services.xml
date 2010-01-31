@@ -29,7 +29,22 @@
                            http://www.springframework.org/schema/jee 
                            http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
 
+<!--
   <jee:jndi-lookup id="bookmarksPU" jndi-name="persistence/bookmarksPU"/>
+-->
+
+  <bean id="bookmarksDS" 
+        class="org.apache.commons.dbcp.BasicDataSource" 
+        destroy-method="close"
+        p:driverClassName="com.mysql.jdbc.Driver"
+        p:url="jdbc:mysql://localhost:3306/bookmarks"
+        p:username="bookmarks_user"
+        p:password="bookmarks_password"/>
+  
+  <bean id="bookmarksPU" 
+        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+        p:dataSource-ref="bookmarksDS"
+        p:persistenceUnitName="bookmarksPU"/>
 
   <!-- here we need component-scan for the services and annotation-config for the persistence unit -->
   <context:component-scan base-package="net.anthonychaves.bookmarks"/>
