@@ -25,12 +25,17 @@ import org.springframework.stereotype.*;
 
 import java.util.*;
 
+import javax.persistence.*;
+
 import org.jredis.*;
 import org.jredis.ri.alphazero.*;
 import static org.jredis.ri.alphazero.support.DefaultCodec.*;
 
 @Service
 public class RedisService {
+  
+  @PersistenceUnit(unitName="bookmarksPU")
+  EntityManagerFactory emf;
 
   private JRedis jredis;
 
@@ -51,5 +56,29 @@ public class RedisService {
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
+  }
+  
+  public List<Bookmark> findBookmarksByTag(String tag, User user) {
+    List<byte[]> bookmarkIds = new ArrayList<byte[]>();
+    try {
+      bookmarkIds = jredis.lrange(tag, 0, 50000);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+    
+    EntityManager em = emf.createEntityManager();
+    em.getTransaction().begin();
+    User u = em.find(User.class, user.getId());
+    javax.persistence.Query query = em.createQuery("select b from Bookmark b where b.id in (:ids) and b.user = :user")
+                    .setParameter("ids", bookmarkIds)
+                    .setParameter("user", u);
+    List<Bookmark> bookmarks = (List<Bookmark>) query.getResultList();
+    em.getTransaction().rollback();
+    
+    return bookmarks;
+  }
+  
+  public List<String> findRelatedTags(String tag) {
+    return null;
   }
 }

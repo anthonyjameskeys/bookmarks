@@ -42,7 +42,6 @@ UUID is 128 bits or 2^128.  hex encoded string: each character is 2^4. 16 hex ch
 
 Next steps: Apache/AJP
             Import/Export bookmarks
-            Real tags
             Public/private
             Featured user
             Trending links
@@ -63,3 +62,4 @@ Done 2010-01-18 - Deleting a bookmark has a bug but I'm so tired I can't see the
 Session timeout - not really an issue.  Sessions timeouts are configured in the app server. Why did I put this on the list?
 Nested sessions - again, why is this on the list?
 Success page for adding a bookmark from the bookmarklet.
+Done 2010-01-30 - Real tags using Redis
