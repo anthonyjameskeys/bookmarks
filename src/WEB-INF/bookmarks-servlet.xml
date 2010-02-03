@@ -38,25 +38,6 @@
   <!-- component-scan creates implicit AutowiredBeanPostProcessor, we don't need PersistenceAnnotationPostProcessor -->
   <context:component-scan base-package="net.anthonychaves.bookmarks"/>
 
-<!--
-  <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/> 
-    <property name="prefix" value="/WEB-INF/jsp/"/> 
-    <property name="suffix" value=".jsp"/>
-  </bean>
--->
-<!--
-  <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-    <property name="messageConverters">
-      <list>
-        <ref bean="jsonHttpMessageConverter"/>
-      </list>
-    </property>
-  </bean>
-
-  <bean id="jsonHttpMessageConverter"  class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
--->
-
   <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
     <property name="mediaTypes">
       <map>

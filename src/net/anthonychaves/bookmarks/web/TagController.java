@@ -36,20 +36,21 @@ import net.anthonychaves.bookmarks.service.*;
 public class TagController {
 
   @Autowired
-  RedisService redisService;
+  TagService tagService;
 
   @RequestMapping(method=RequestMethod.GET)
   public String getBookmarksWithTag(@RequestParam(value="tag") String tag, HttpSession session, ModelMap model) {
     User user = (User) session.getAttribute("user");
 
-    List<BookmarkDetail> bookmarks = redisService.findBookmarksByTag(tag, user);
-    List<String> suggestedTags = redisService.findRelatedTags(tag);
+    List<BookmarkDetail> bookmarks = tagService.findBookmarksByTag(tag, user);
+    List<String> suggestedTags = tagService.findRelatedTags(tag);
     
+    model.clear();
     model.addAttribute("bookmarks", bookmarks);
     return "tags";
   }
   
-	public void setRedisService(RedisService redisService) {
-	  this.redisService = redisService;
+	public void setTagService(TagService tagService) {
+	  this.tagService = tagService;
 	}
 }

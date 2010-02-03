@@ -103,4 +103,14 @@ public class User implements Serializable {
 	public String getOpenIdIdentifier() {
 	  return openIdIdentifier;
 	}
+	
+	public List<BookmarkDetail> getBookmarksDetail() {
+	  List<BookmarkDetail> bd = new ArrayList<BookmarkDetail>();
+	  
+	  for (Bookmark b : getBookmarks()) {
+	    bd.add(new BookmarkDetail(b.getTitle(), b.getUrl(), b.getTags()));
+	  }
+	  
+	  return bd;
+	}
 }

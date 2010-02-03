@@ -24,19 +24,15 @@ public class BookmarkDetail {
   private int id;
   private String title;
   private String url;
-  private int hitCount;
+  private String tags;
   
-  public BookmarkDetail(int id, String title, String url, int hitCount) {
-    System.out.println("================================================== CREATING BOOKMARK DETAIL");
-    this.id = id;
+  public BookmarkDetail(String title, String url, String tags) {
     this.title = title;
     this.url = url;
-    this.hitCount = hitCount;
-    System.out.println("================================================== DONE");
+    this.tags = tags;
   }
-  
-  public int getId() { return this.id; }
+
   public String getTitle() { return this.title; }
   public String getUrl() { return this.url; }
-  public int getHitCount() { return this.hitCount; }
+  public String getTags() { return this.tags; }
 }

@@ -38,57 +38,62 @@ public class BookmarkController {
   UserService userService;
   
   @Autowired
-  RedisService redisService;
+  TagService tagService;
 
 	@RequestMapping(method=RequestMethod.POST)
-	public String addBookmark(@ModelAttribute("bookmark") Bookmark bookmark,
-	                          HttpSession session) {
+	public String addBookmark(@RequestParam(value="title") String title,
+	                          @RequestParam(value="url") String url,
+	                          @RequestParam(value="tags") String tags,
+	                          HttpSession session,
+	                          ModelMap model) {
 
     User u = (User) session.getAttribute("user");
-    Bookmark b = new Bookmark();
     // might help to validate url here...
-    b.setUrl(bookmark.getUrl());
-    b.setTitle(bookmark.getTitle());
-    b.setTags(bookmark.getTags());
 
-    User user = userService.addBookmark(u, b);
-    redisService.addTags(b);
+    Bookmark bookmark = new Bookmark();
+    bookmark.setTitle(title);
+    bookmark.setUrl(url);
+    bookmark.setTags(tags);
+
+    User user = userService.addBookmark(u, bookmark);
+    tagService.addTags(bookmark);
     session.setAttribute("user", user);
-    session.setAttribute("latestBookmark", b);
-    return "redirect:/b/bookmarks/add_bookmark_success";
+
+    BookmarkDetail b = new BookmarkDetail(bookmark.getTitle(), bookmark.getUrl(), bookmark.getTags());
+    model.clear();
+    model.addAttribute("bookmark", b);
+    
+    return "redirect:/b/users";
 	}
 	
-	@RequestMapping(value="/add_bookmark_success", method=RequestMethod.GET)
-	public String addBookmarkSuccess() {
-	  return "add_bookmark_success";
-	}
-	
-	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	@RequestMapping(value="/delete", method=RequestMethod.DELETE)
 	public String deleteBookmark(@RequestParam(value="bookmarkId") String bookmarkId,
-	                             HttpSession session) {
+	                             HttpSession session,
+	                             ModelMap model) {
 
 	  User user = (User) session.getAttribute("user");
 	  userService.deleteBookmark(user, bookmarkId);
+
+    model.clear();
+    model.addAttribute("result", "deleted bookmark: " + bookmarkId);
 
 	  return "redirect:/b/user";
 	}
 
   @RequestMapping(method=RequestMethod.GET)
-  public String getUserBookmarks() {
+  public String getUserBookmarks(HttpSession session, ModelMap model) {
+    User user = (User) session.getAttribute("user");
+    model.clear();
+    model.addAttribute("bookmarks", user.getBookmarksDetail());
+    
     return "user_bookmarks";
-  }
-  
-  @RequestMapping(method=RequestMethod.GET, value="/new")
-  public String setupForm(ModelMap model) {
-    model.addAttribute(new Bookmark());
-    return "add_bookmark";
   }
 	
 	public void setUserService(UserService userService) {
 	  this.userService = userService;
 	}
 	
-	public void setRedisService(RedisService redisService) {
-	  this.redisService = redisService;
+	public void setTagService(TagService tagService) {
+	  this.tagService = tagService;
 	}
 }
