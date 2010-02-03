@@ -55,6 +55,8 @@ Next steps: Apache/AJP
             lin.ke needs to be a white-label service - the built in url shortener
             iphone app for new content from lin.ke
             how do we integrate with it as a service and as an open source package?
+            How do I deal with different versions of files with git?  mac and htpc have different versions of build.properties
+
 
 Done 2010-01-10-ish - Login from cookie in servlet filter
 Done 2010-01-17 - Page title, bookmark tags

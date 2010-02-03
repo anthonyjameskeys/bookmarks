@@ -38,6 +38,10 @@
   <!-- component-scan creates implicit AutowiredBeanPostProcessor, we don't need PersistenceAnnotationPostProcessor -->
   <context:component-scan base-package="net.anthonychaves.bookmarks"/>
 
+  <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <property name="maxUploadSize" value="100000"/>
+  </bean>
+
   <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
     <property name="mediaTypes">
       <map>

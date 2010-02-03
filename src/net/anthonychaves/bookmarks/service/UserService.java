@@ -80,6 +80,23 @@ public class UserService {
     return u;
   }
   
+  public User addBookmarks(User user, List<Bookmark> bookmarks) {
+    EntityManager em = emf.createEntityManager();
+
+    em.getTransaction().begin();
+    User u = findUser(user.getEmailAddress());
+
+    for (Bookmark bookmark : bookmarks) {
+      bookmark.setUser(u);
+      em.persist(bookmark);
+      u.getBookmarks().add(bookmark);
+    }
+    
+    em.getTransaction().commit();
+
+    return u;
+  }
+  
   public void deleteBookmark(User user, String bookmarkId) {
     EntityManager em = emf.createEntityManager();
     em.getTransaction().begin();

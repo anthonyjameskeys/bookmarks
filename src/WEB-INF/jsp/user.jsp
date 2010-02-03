@@ -36,6 +36,14 @@ You can generate an API token.  Your current API token is: ${user.apiKey}
   <a href="javascript:(function(){targetUrl='http://${pageContext.request.serverName}:8080/bookmarks/b/bookmarks/new?url='+encodeURI(document.location)+'&title='+encodeURI(document.title);window.open(targetUrl,'QuickBookmark','width=400,height=400,location=yes,links=no,toolbar=no');})()">Quick bookmark</a>
 </p>
 
+<p>
+  You can upload a bookmark file.<br/>
+  <form method="post" action="/bookmarks/b/bookmarksFile.json" enctype="multipart/form-data">
+    <input type="file" name="file"/> 
+    <input type="submit"/>
+  </form>
+</p>
+
 <jsp:include page="/b/bookmarks/new"/>
 <br/>
 <jsp:include page="/b/bookmarks"/>
