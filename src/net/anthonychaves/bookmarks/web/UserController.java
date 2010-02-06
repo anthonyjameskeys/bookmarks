@@ -72,29 +72,6 @@ public class UserController {
 	  return "user";
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="/login")
-	public String login(@RequestParam("name") String username, HttpSession session) {
-	  User user = userService.findUser(username);
-	  session.setAttribute("user", user);
-    return "redirect:/b/user";
-	}
-	
-	@RequestMapping(method=RequestMethod.POST, value="/rememberMe")
-  public String rememberMe(HttpSession session, 
-                           HttpServletResponse response) {
-    int duration = 168; //hours to remember me for = 1 week
-    User user = (User) session.getAttribute("user");
-    String tokenId = tokenService.setupNewLoginToken(user);
-    
-    Cookie cookie = new Cookie("loginToken", tokenId);
-    cookie.setMaxAge(duration * 60 * 60);
-    cookie.setPath("/bookmarks");
-    response.addCookie(cookie);
-    
-    return "redirect:/b/user";
-  }
-
-	
 	public void setUserService(UserService userService) {
 	  this.userService = userService;
 	}

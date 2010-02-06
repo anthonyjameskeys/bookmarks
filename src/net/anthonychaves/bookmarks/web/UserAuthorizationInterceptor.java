@@ -32,11 +32,21 @@ import net.anthonychaves.bookmarks.service.*;
 @Component
 public class UserAuthorizationInterceptor extends HandlerInterceptorAdapter {
 
+  private static final String UNAUTHORIZED_MSG = "You are not logged in.  You must log in or supply an API token.";
+
   @Override
   public boolean preHandle(HttpServletRequest request, 
                         HttpServletResponse response, 
-                        Object handler) {
-    System.out.println("============================" + request.getRequestURI());
-    return true;
+                        Object handler) throws Exception {
+
+    String uri = request.getRequestURI();
+    User user = (User) request.getSession().getAttribute("user");
+    
+    if (user != null || uri.indexOf("login") != -1) {
+      return true;
+    } else {
+      response.sendError(HttpServletResponse.SC_FORBIDDEN, UNAUTHORIZED_MSG);
+      return false;
+    }
   }
 }

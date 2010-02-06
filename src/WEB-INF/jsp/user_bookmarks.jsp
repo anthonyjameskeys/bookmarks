@@ -27,6 +27,7 @@ You have ${fn:length(user.bookmarks)} bookmarks.
       <div id="bookmark_container">
         <div id="bookmark_buttons">
           <form action="/bookmarks/b/bookmarks/delete.json" method="post">
+            <input type="hidden" name="_method" value="delete"/>
             <input type="hidden" name="bookmarkId" value="${bookmark.id}"/>
             <input type="submit" style="background: url(http://${pageContext.request.serverName}:8080/bookmarks/img/minus.png) 0 0 no-repeat; font-size: 0; border: none; width: 32px; height: 32px;"/>
           </form>

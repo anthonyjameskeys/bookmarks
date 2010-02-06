@@ -16,6 +16,14 @@
   You should have received a copy of the GNU General Public License
   along with Bookmarks.  If not, see <http://www.gnu.org/licenses/>.
 -->
+Hi.
+<br/>
+<a href="/bookmarks/b/login">You can log in with Google!</a>
 
-<%@ include file="WEB-INF/jsp/header.jsp" %>
-<c:redirect url="http://${pageContext.request.serverName}:8080/bookmarks/b/user"/>
+<br/>
+Or you can use the fake login.
+<form action="/bookmarks/b/fakelogin" method="post">
+<input type="text" name="username"/>
+<br/>
+<input type="submit" value="Log in!"/>
+</form>
