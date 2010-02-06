@@ -42,6 +42,12 @@
     <property name="maxUploadSize" value="100000"/>
   </bean>
 
+  <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+    <property name="interceptors"> 
+      <bean class="net.anthonychaves.bookmarks.web.UserAuthorizationInterceptor"/>
+    </property> 
+  </bean>
+
   <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
     <property name="mediaTypes">
       <map>

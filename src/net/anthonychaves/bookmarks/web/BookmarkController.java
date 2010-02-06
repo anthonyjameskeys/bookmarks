@@ -88,6 +88,11 @@ public class BookmarkController {
     
     return "user_bookmarks";
   }
+  
+  @RequestMapping(method=RequestMethod.GET, value="/new")
+  public String newBookmark() {
+    return "add_bookmark";
+  }
 	
 	public void setUserService(UserService userService) {
 	  this.userService = userService;
