@@ -63,10 +63,10 @@ public class BookmarkController {
     model.clear();
     model.addAttribute("bookmark", b);
     
-    return "redirect:/b/users";
+    return "redirect:/b/user";
 	}
 	
-	@RequestMapping(value="/delete", method=RequestMethod.DELETE)
+	@RequestMapping(method=RequestMethod.DELETE)
 	public String deleteBookmark(@RequestParam(value="bookmarkId") String bookmarkId,
 	                             HttpSession session,
 	                             ModelMap model) {
@@ -75,7 +75,7 @@ public class BookmarkController {
 	  userService.deleteBookmark(user, bookmarkId);
 
     model.clear();
-    model.addAttribute("result", "deleted bookmark: " + bookmarkId);
+    model.addAttribute("result", "success");
 
 	  return "redirect:/b/user";
 	}
@@ -83,6 +83,8 @@ public class BookmarkController {
   @RequestMapping(method=RequestMethod.GET)
   public String getUserBookmarks(HttpSession session, ModelMap model) {
     User user = (User) session.getAttribute("user");
+    user = userService.findUser(user.getId());
+    
     model.clear();
     model.addAttribute("bookmarks", user.getBookmarksDetail());
     

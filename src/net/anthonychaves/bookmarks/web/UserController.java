@@ -40,35 +40,8 @@ public class UserController {
 	@Autowired
 	TokenService tokenService;
 
-	@RequestMapping(value="/new", method=RequestMethod.GET)
-	public String newUser(ModelMap model) {
-		model.addAttribute(new User());
-		return "user_new";
-	}
-/*	
-	@RequestMapping(method=RequestMethod.POST)
-	public String createUser(@ModelAttribute("user") User user, 
-							 HttpSession session, 
-							 @RequestParam("j_captcha_response") String captchaResponse) {
-							   
-		boolean validResponse = icservice.validateResponseForID(session.getId(), captchaResponse);
-		if (validResponse) {
-		  userService.createUser(user);
-		  session.setAttribute("user", user);
-			return "redirect:/b/user";
-		} else {
-			return "redirect:/b/user/new";
-		}
-	}
-*/	
 	@RequestMapping(method=RequestMethod.GET)
 	public String user(HttpSession session) {
-	  if (session == null || session.getAttribute("user") == null) {
-	    return "redirect:/b/user/new";
-	  }
-	  User user = (User) session.getAttribute("user");
-	  user = userService.findUser(user.getId());
-	  session.setAttribute("user", user);
 	  return "user";
 	}
 	

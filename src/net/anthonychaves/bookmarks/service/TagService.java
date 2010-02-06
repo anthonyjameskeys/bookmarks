@@ -67,7 +67,7 @@ public class TagService {
     EntityManager em = emf.createEntityManager();
     em.getTransaction().begin();
     User u = em.find(User.class, user.getId());
-    javax.persistence.Query query = em.createQuery("select new net.anthonychaves.bookmarks.models.BookmarkDetail(b.title, b.url, b.tags) from Bookmark b where b.id in (:ids) and b.user = :user")
+    javax.persistence.Query query = em.createQuery("select new net.anthonychaves.bookmarks.models.BookmarkDetail(b.title, b.url, b.tags) from Bookmark b where b.id in (:ids) and b.user = :user order by b.id desc")
                     .setParameter("ids", bookmarkIds)
                     .setParameter("user", u);
     List<BookmarkDetail> bookmarks = (List<BookmarkDetail>) query.getResultList();
