@@ -72,7 +72,8 @@ public class BookmarkController {
 	                             ModelMap model) {
 
 	  User user = (User) session.getAttribute("user");
-	  userService.deleteBookmark(user, bookmarkId);
+	  user = userService.deleteBookmark(user, bookmarkId);
+	  session.setAttribute("user", user);
 
     model.clear();
     model.addAttribute("result", "success");
