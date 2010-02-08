@@ -34,6 +34,7 @@
         <include name="*-INF/**"/>
         <include name="img/*"/>
         <include name="*.jsp"/>
+        <include name="*.js"/>
       </fileset>
     </copy>
   </target>

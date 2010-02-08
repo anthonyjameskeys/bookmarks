@@ -43,6 +43,9 @@ public class BookmarkFileUploadController {
   @Autowired
   UserService userService;
   
+  @Autowired
+  BookmarkService bookmarkService;
+  
   @RequestMapping(method=RequestMethod.POST)
   public String uploadBookmarkFile(@RequestParam(value="file") MultipartFile file,
                                    HttpSession session, ModelMap model) throws IOException {
@@ -53,22 +56,23 @@ public class BookmarkFileUploadController {
 
     List<Bookmark> bookmarks = new ArrayList<Bookmark>();
     for (TagNode node : nodes) {
-      Bookmark bookmark = new Bookmark();
-      bookmark.setTitle(node.getText().toString());
-      bookmark.setUrl(node.getAttributeByName("href"));
-      bookmarks.add(bookmark);
+      bookmarks.add(bookmarkService.makeBookmark(node));
     }
 
     User user = (User) session.getAttribute("user");
     user = userService.addBookmarks(user, bookmarks);
     session.setAttribute("user", user);
     
-    model.addAttribute("i think we succeeded");
+    model.addAttribute(user.getBookmarksDetail());
     
     return "redirect:/b/user";
   }
   
 	public void setUserService(UserService userService) {
 	  this.userService = userService;
+	}
+	
+	public void setBookmarkService(BookmarkService bookmarkService) {
+	  this.bookmarkService = bookmarkService;
 	}
 }

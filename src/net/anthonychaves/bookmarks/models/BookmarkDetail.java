@@ -26,12 +26,14 @@ public class BookmarkDetail {
   private String url;
   private String tags;
   
-  public BookmarkDetail(String title, String url, String tags) {
+  public BookmarkDetail(int id, String title, String url, String tags) {
+    this.id = id;
     this.title = title;
     this.url = url;
     this.tags = tags;
   }
 
+  public int getId() { return this.id; }
   public String getTitle() { return this.title; }
   public String getUrl() { return this.url; }
   public String getTags() { return this.tags; }

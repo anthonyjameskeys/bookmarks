@@ -20,24 +20,17 @@
 
 You have ${fn:length(user.bookmarks)} bookmarks.
 
+<script type="text/javascript">
+  $(document).ready(function(){
+    alert($('').innerWidth());
+  });
+</script>
+
 <br/>
 <c:choose>
   <c:when test="${fn:length(user.bookmarks) > 0}">
-    <c:forEach var="bookmark" items="${user.bookmarks}">
-      <div id="bookmark_container">
-        <div id="bookmark_buttons">
-          <form action="/bookmarks/b/bookmarks.json" method="post">
-            <input type="hidden" name="_method" value="delete"/>
-            <input type="hidden" name="bookmarkId" value="${bookmark.id}"/>
-            <input type="submit" style="background: url(http://${pageContext.request.serverName}:8080/bookmarks/img/minus.png) 0 0 no-repeat; font-size: 0; border: none; width: 32px; height: 32px;"/>
-          </form>
-        </div>
-        <div id="bookmark_content">
-          <a href="${bookmark.url}">${bookmark.url}</a><br/>
-          ${bookmark.tags}<br/>
-        </div>
-      </div>
-    </c:forEach>
+    <c:set var="bookmarks" value="${user.bookmarks}" scope="request"/>
+    <jsp:include page="bookmarks.jsp"/>
   </c:when>
   <c:otherwise>
     You don't have any bookmarks!

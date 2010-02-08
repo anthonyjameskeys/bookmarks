@@ -59,7 +59,7 @@ public class BookmarkController {
     tagService.addTags(bookmark);
     session.setAttribute("user", user);
 
-    BookmarkDetail b = new BookmarkDetail(bookmark.getTitle(), bookmark.getUrl(), bookmark.getTags());
+    BookmarkDetail b = new BookmarkDetail(bookmark.getId(), bookmark.getTitle(), bookmark.getUrl(), bookmark.getTags());
     model.clear();
     model.addAttribute("bookmark", b);
     
@@ -76,7 +76,7 @@ public class BookmarkController {
 	  session.setAttribute("user", user);
 
     model.clear();
-    model.addAttribute("result", "success");
+    model.addAttribute("result", bookmarkId);
 
 	  return "redirect:/b/user";
 	}

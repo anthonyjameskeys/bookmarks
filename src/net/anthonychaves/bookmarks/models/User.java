@@ -109,7 +109,7 @@ public class User implements Serializable {
 	  List<BookmarkDetail> bd = new ArrayList<BookmarkDetail>();
 	  
 	  for (Bookmark b : getBookmarks()) {
-	    bd.add(new BookmarkDetail(b.getTitle(), b.getUrl(), b.getTags()));
+	    bd.add(new BookmarkDetail(b.getId(), b.getTitle(), b.getUrl(), b.getTags()));
 	  }
 	  
 	  return bd;
