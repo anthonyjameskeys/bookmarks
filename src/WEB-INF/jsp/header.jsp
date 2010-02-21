@@ -26,3 +26,4 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <script type="text/javascript" src="/bookmarks/jquery-1.4.1.js"></script>
+<script type="text/javascript" src="/bookmarks/jquery-ui-1.7.2.custom.min.js"></script>

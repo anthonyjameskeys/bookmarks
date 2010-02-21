@@ -18,14 +18,7 @@
 -->
 <%@ include file="header.jsp" %>
 
-You have ${fn:length(user.bookmarks)} bookmarks.
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    alert($('').innerWidth());
-  });
-</script>
-
+You have <span id="bookmark_count">${fn:length(user.bookmarks)}</span> bookmarks.
 <br/>
 <c:choose>
   <c:when test="${fn:length(user.bookmarks) > 0}">

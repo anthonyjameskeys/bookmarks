@@ -18,15 +18,32 @@
 -->
 <%@ include file="header.jsp" %>
 
+<script type="text/javascript">
+  $(function() {
+    $(".delete_button").click(function() {
+      var elm = this;
+      $.ajax({type: "POST",
+             url: "/bookmarks/b/bookmarks.json",
+             data: "_method=delete&bookmarkId=" + elm.id,
+             success: function(msg) {
+               $(elm.parentElement.parentElement).slideUp();
+               var count = $("#bookmark_count")[0].innerHTML;
+               $("#bookmark_count")[0].innerHTML = --count;
+             },
+             error: function(request, settings) {
+               alert("you screwed up\n"+request.responseText);
+             }});
+    });
+    
+    $(".bookmark_container").draggable({revert: true, opacity: 0.7, helper: 'clone'});
+  });
+</script>
+
 <c:forEach var="bookmark" items="${bookmarks}">
-  <div id="bookmark_container" style="width: 500px; border: 2px red solid;">
-    <div class="spacer" style="clear: both;">&nbsp;</div>
+  <div class="bookmark_container" style="float: left; width: 300px; margin-bottom: 20px;">
+    <div class="spacer" style="clear: both; height: 0px;">&nbsp;</div>
     <div id="bookmark_buttons" style="float: left; clear: left;">
-      <form action="/bookmarks/b/bookmarks" method="post">
-        <input type="hidden" name="_method" value="delete"/>
-        <input type="hidden" name="bookmarkId" value="${bookmark.id}"/>
-        <input type="submit" style="background: url(http://${pageContext.request.serverName}:8080/bookmarks/img/minus.png) 0 0 no-repeat; font-size: 0; border: none; width: 32px; height: 32px;"/>
-      </form>
+      <img class="delete_button" src="http://${pageContext.request.serverName}:8080/bookmarks/img/minus.png" style="border: none; width: 32px; height: 32px;" id="${bookmark.id}"/>
     </div>
     <div class="bookmark_content">
       <c:set var="titleSuffix" value=""/>
@@ -47,6 +64,6 @@
       </c:forTokens>
       <br/>
     </div>
-    <div class="spacer" style="clear: both;">&nbsp;</div>
+    <div class="spacer" style="clear: both; height: 0px;">&nbsp;</div>
   </div>
 </c:forEach>

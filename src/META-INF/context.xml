@@ -46,6 +46,6 @@
   <Resource name="jdbc/bookmarks" auth="Container" type="javax.sql.DataSource"
                maxActive="100" maxIdle="30" maxWait="10000"
                username="bookmarks_user" password="bookmarks_password" driverClassName="com.mysql.jdbc.Driver"
-               url="jdbc:mysql://localhost:3306/bookmarks"/>
+               url="jdbc:mysql://localhost:3306/bookmarks?autoReconnect=true"/>
 
 </Context>

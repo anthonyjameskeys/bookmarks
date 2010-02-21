@@ -18,7 +18,7 @@
 -->
 <%@ include file="header.jsp" %>
 
-<div class="user_bookmarks" style="float: left; width: 700px;">
+<div class="user_bookmarks" style="float: left; width: 900px;">
   <jsp:include page="user_bookmarks.jsp"/>
 </div>
 
