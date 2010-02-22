@@ -59,4 +59,10 @@
       </form>
     </p>
   </div>
+  
+  <div class="bookmark_sharing">
+    <img src="/bookmarks/img/twitter.png" width="80px" height="80px">&nbsp;
+    <img class="droppable" id="droppable_facebook" src="/bookmarks/img/facebook.png" width="80px" height="80px">&nbsp;
+    <img class="droppable" id="droppable_trash" src="/bookmarks/img/trash.png" width="80px" height="80px">&nbsp;
+  </div>
 </div>

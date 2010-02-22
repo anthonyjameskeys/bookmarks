@@ -18,27 +18,6 @@
 -->
 <%@ include file="header.jsp" %>
 
-<script type="text/javascript">
-  $(function() {
-    $(".delete_button").click(function() {
-      var elm = this;
-      $.ajax({type: "POST",
-             url: "/bookmarks/b/bookmarks.json",
-             data: "_method=delete&bookmarkId=" + elm.id,
-             success: function(msg) {
-               $(elm.parentElement.parentElement).slideUp();
-               var count = $("#bookmark_count")[0].innerHTML;
-               $("#bookmark_count")[0].innerHTML = --count;
-             },
-             error: function(request, settings) {
-               alert("you screwed up\n"+request.responseText);
-             }});
-    });
-    
-    $(".bookmark_container").draggable({revert: true, opacity: 0.7, helper: 'clone'});
-  });
-</script>
-
 <c:forEach var="bookmark" items="${bookmarks}">
   <div class="bookmark_container" style="float: left; width: 300px; margin-bottom: 20px;">
     <div class="spacer" style="clear: both; height: 0px;">&nbsp;</div>
@@ -58,7 +37,7 @@
           <c:set var="title" value="${fn:substring(bookmark.url, 0, 35)}${titleSuffix}"/>
         </c:otherwise>
       </c:choose>
-      <a href="${bookmark.url}" title="${bookmark.title}">${title}</a><br/>
+      <a href="${bookmark.url}" title="${bookmark.title}" class="bookmark_link">${title}</a><br/>
       <c:forTokens var="tag" items="${bookmark.tags}" delims=",">
         <a href="/bookmarks/b/tags?tag=${tag}">${tag}</a>&nbsp;&nbsp;
       </c:forTokens>
