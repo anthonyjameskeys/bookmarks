@@ -30,11 +30,19 @@
   .droppable {
     padding: 5px;
   }
+  
+  span.title {
+    font-size: large;
+    font-weight: bold;
+  }
+  
+  div.tag_form {
+    
+  }
 </style>
 
 <script type="text/javascript" src="/bookmarks/jquery-1.4.1.js"></script>
 <script type="text/javascript" src="/bookmarks/jquery-ui-1.7.2.custom.min.js"></script>
-<script type="text/javascript" src="/bookmarks/jquery.cookie.js"></script>
 <script type="text/javascript" src="/bookmarks/bookmarks.js"></script>
 
 <div class="user_bookmarks" style="float: left; width: 900px;">
@@ -52,29 +60,34 @@
   </div>
   
   <div class="user_bookmark_actions">
-    <p>You can drag this link to your bookmarks toolbar for quick bookmarking:
-      <a href="javascript:(function(){targetUrl='http://${pageContext.request.serverName}:8080/bookmarks/b/bookmarks/new?url='+encodeURI(document.location)+'&title='+encodeURI(document.title);window.open(targetUrl,'QuickBookmark','width=400,height=400,location=yes,links=no,toolbar=no');})()">Quick bookmark</a>
-    </p>
-
-    <p>You can upload a bookmark file.<br/>
-      <form method="post" action="/bookmarks/b/bookmarksFile.json" enctype="multipart/form-data">
-        <input type="file" name="file"/> 
-        <input type="submit"/>
-      </form>
-    </p>
-
-    <p>You can add a bookmark manually<br/>
-      <jsp:include page="/b/bookmarks/new"/>
-    </p>
-  </div>
-  
-  <div class="api_key_data">
-    API Token (What's this?): <span id="api_token">${user.apiKey}</span><br/>
-    <input type="submit" id="new_api_token_button" value="Generate new API Token"/>
     <br/>
+    <span class="title">Bookmarklet</span><br/>
+    You can drag this link to your bookmarks toolbar for quick bookmarking:
+      <a href="javascript:(function(){targetUrl='http://${pageContext.request.serverName}:8080/bookmarks/b/bookmarks/new?url='+encodeURI(document.location)+'&title='+encodeURI(document.title);window.open(targetUrl,'QuickBookmark','width=400,height=400,location=yes,links=no,toolbar=no');})()">Quick bookmark</a>
+    
+    <br/>&nbsp;<br/>
+    <span class="title">Upload a bookmark file.</span><br/>
+    <form method="post" action="/bookmarks/b/bookmarksFile.json" enctype="multipart/form-data">
+      <input type="file" name="file"/> 
+      <input type="submit"/>
+    </form>
+
+    <span class="title">Add a bookmark.</span><br/>
+    <form:form action="/bookmarks/b/bookmarks.json" id="bookmark" method="post">
+      URL: <input name="url" type="text"/>
+      <br/>Title: <input name="title" type="text"/>
+      <br/>Tags: <input name="tags" type="text"/>
+      <br/><input type="submit" value="Add bookmark!"/>
+    </form:form>
   </div>
   
+  API Token (What's this?): <span id="api_token">${user.apiKey}</span><br/>
+  <input type="submit" id="new_api_token_button" value="Generate new API Token"/>
+  <br/>
+
   <div class="bookmark_sharing">
+    <br/>&nbsp;<br/>
+    <span class="title">Drag your bookmarks to share.</span><br/>
     <img src="/bookmarks/img/twitter.png" width="80px" height="80px">&nbsp;
     <img class="droppable" id="droppable_facebook" src="/bookmarks/img/facebook.png" width="80px" height="80px">&nbsp;
     <img class="droppable" id="droppable_trash" src="/bookmarks/img/trash.png" width="80px" height="80px">&nbsp;

@@ -40,4 +40,20 @@ public class BookmarkService {
     
     return bookmark;
   }
+  
+  public Bookmark updateTags(User user, int id, String tags) {
+    EntityManager em = emf.createEntityManager();
+
+    em.getTransaction().begin();
+    User u = em.find(User.class, user.getId());
+    Bookmark b = em.find(Bookmark.class, id);
+    if (b.getUser().getId() != u.getId()) {
+      throw new RuntimeException("Please don't try to delete bookmarks that aren't yours.");
+    }
+    
+    b.setTags(tags);
+    em.getTransaction().commit();
+
+    return b;
+  }
 }

@@ -39,6 +39,9 @@ public class BookmarkController {
   
   @Autowired
   TagService tagService;
+  
+  @Autowired
+  BookmarkService bookmarkService;
 
 	@RequestMapping(method=RequestMethod.POST)
 	public String addBookmark(@RequestParam(value="title") String title,
@@ -63,7 +66,26 @@ public class BookmarkController {
     model.clear();
     model.addAttribute("bookmark", b);
     
-    return "redirect:/b/user";
+    return "redirect:add_bookmark_success";
+	}
+	
+	@RequestMapping(method=RequestMethod.PUT)
+	public String updateBookmark(@RequestParam(value="id") Integer id,
+	                             @RequestParam(value="tags") String tags,
+	                             HttpSession session,
+	                             ModelMap model) {
+
+    User user = (User) session.getAttribute("user");
+    Bookmark bookmark = bookmarkService.updateTags(user, id, tags);
+    tagService.addTags(bookmark);
+
+    BookmarkDetail b = new BookmarkDetail(bookmark.getId(), bookmark.getTitle(), bookmark.getUrl(), bookmark.getTags());
+    model.clear();
+    model.addAttribute("bookmark", b);
+
+    //TODO intentionally not updating user object in session right now.  Should only be called for json output right now.
+    
+    return "redirect:add_bookmark_success";
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE)
@@ -103,5 +125,9 @@ public class BookmarkController {
 	
 	public void setTagService(TagService tagService) {
 	  this.tagService = tagService;
+	}
+	
+	public void setBookmarkService(BookmarkService bookmarkService) {
+	  this.bookmarkService = bookmarkService;
 	}
 }

@@ -29,7 +29,7 @@ $(function() {
                                                     if (data["status"] != "success" || data["newKey"] == "") {
                                                       alert("Uh oh, something went wrong.  We've been notified of the problem and will fix it ASAP.  Please try again later.");
                                                     } else {
-                                                      $("#api_token").text = data["newKey"];
+                                                      $("#api_token")[0].innerHTML = data["newKey"];
                                                     }
                                                   }
                                         });
@@ -69,5 +69,22 @@ $(function() {
                                       tolerance: 'pointer', 
                                       hoverClass: 'drophover'
                                     });
-                                    
+
+  submit_tags = function(id, tags) {
+    
+  };
+
+  $(".bookmark_container").click( function() {
+                                    var elm = $(this).find(".tag_form")[0];
+                                    if (elm == null) {
+                                      elm = $("<div></div>").addClass("tag_form").hide();
+                                      text_field = $("<input type=\"text\" id=\"tags\" name=\"tags\"/>");
+                                      elm.appent(text_field);
+                                      img = $("<img src=\"/bookmarks/tag_submit.png\"");
+                                      img.click(submit_tags(ID, TAGS));
+                                      
+                                      $(this).append(elm);
+                                    }
+                                    $(elm).slideToggle("slow");
+                                  });                                    
 });

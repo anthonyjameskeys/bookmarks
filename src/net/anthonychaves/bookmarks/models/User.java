@@ -43,7 +43,7 @@ public class User implements Serializable {
 	private String emailAddress;
 	
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@OrderBy
+	@OrderBy("id DESC")
 	List<Bookmark> bookmarks = new ArrayList<Bookmark>();
 	
 	@Version 

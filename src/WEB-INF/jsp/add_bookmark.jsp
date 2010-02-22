@@ -18,7 +18,7 @@
 -->
 <%@ include file="header.jsp" %>
 
-<form:form action="/bookmarks/b/bookmarks.json" id="bookmark" method="post">
+<form:form action="/bookmarks/b/bookmarks" id="bookmark" method="post">
 <br/>URL: <input name="url" type="text" value="${param['url']}"/>
 <br/>Title: <input name="title" type="text" value="${param['title']}"/>
 <br/>Tags: <input name="tags" type="text"/>
