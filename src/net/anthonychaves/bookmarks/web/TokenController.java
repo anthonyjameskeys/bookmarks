@@ -38,7 +38,8 @@ public class TokenController {
 
 	@RequestMapping(method=RequestMethod.POST)
   public String rememberMe(HttpSession session, 
-                           HttpServletResponse response) {
+                           HttpServletResponse response,
+                           ModelMap model) {
     int duration = 168; //hours to remember me for = 1 week
     User user = (User) session.getAttribute("user");
     String tokenId = tokenService.setupNewLoginToken(user);
@@ -47,6 +48,8 @@ public class TokenController {
     cookie.setMaxAge(duration * 60 * 60);
     cookie.setPath("/bookmarks");
     response.addCookie(cookie);
+    
+    model.addAttribute("status", "success");
     
     return "redirect:/b/user";
   }

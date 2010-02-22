@@ -22,6 +22,7 @@ package net.anthonychaves.bookmarks.web;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
+import org.springframework.ui.*;
 
 import net.anthonychaves.bookmarks.service.*;
 import net.anthonychaves.bookmarks.models.*;
@@ -38,11 +39,15 @@ public class ApiKeyController {
   UserService userService;
   
   @RequestMapping(method=RequestMethod.POST)
-  public String generateApiKey(HttpSession session) {
+  public String generateApiKey(HttpSession session,
+                               ModelMap model) {
     User user = (User) session.getAttribute("user");
     String apiKey = UUID.randomUUID().toString().replaceAll("-","").substring(0,16).toUpperCase();
     user = userService.setApiKey(user, apiKey);
     session.setAttribute("user", user);
+    
+    model.addAttribute("status", "success");
+    model.addAttribute("newKey", apiKey);
     
     return "redirect:user";
   }

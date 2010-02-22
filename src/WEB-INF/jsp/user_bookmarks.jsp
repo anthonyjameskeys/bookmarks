@@ -18,8 +18,6 @@
 -->
 <%@ include file="header.jsp" %>
 
-You have <span id="bookmark_count">${fn:length(user.bookmarks)}</span> bookmarks.
-<br/>
 <c:choose>
   <c:when test="${fn:length(user.bookmarks) > 0}">
     <c:set var="bookmarks" value="${user.bookmarks}" scope="request"/>

@@ -21,10 +21,7 @@
 <c:forEach var="bookmark" items="${bookmarks}">
   <div class="bookmark_container" style="float: left; width: 300px; margin-bottom: 20px;">
     <div class="spacer" style="clear: both; height: 0px;">&nbsp;</div>
-    <div id="bookmark_buttons" style="float: left; clear: left;">
-      <img class="delete_button" src="http://${pageContext.request.serverName}:8080/bookmarks/img/minus.png" style="border: none; width: 32px; height: 32px;" id="${bookmark.id}"/>
-    </div>
-    <div class="bookmark_content">
+    <div class="bookmark_content" id="${bookmark.id}">
       <c:set var="titleSuffix" value=""/>
       <c:if test="${fn:length(bookmark.title) gt 35}">
         <c:set var="titleSuffix" value="..."/>

@@ -18,36 +18,40 @@
 -->
 <%@ include file="header.jsp" %>
 
+<style type="text/css">
+  .drophover {
+    background-color: LightGreen;
+  }
+  
+  .drophovertrash {
+    background-color: Tomato;
+  }
+  
+  .droppable {
+    padding: 5px;
+  }
+</style>
+
+<script type="text/javascript" src="/bookmarks/jquery-1.4.1.js"></script>
+<script type="text/javascript" src="/bookmarks/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript" src="/bookmarks/jquery.cookie.js"></script>
+<script type="text/javascript" src="/bookmarks/bookmarks.js"></script>
+
 <div class="user_bookmarks" style="float: left; width: 900px;">
   <jsp:include page="user_bookmarks.jsp"/>
 </div>
 
-<div class="user_info" style="float:right; width: 300px;">
+<div class="user_info" style="width: 300px; position: fixed; left: 920px;">
   <div class="user_info_header">
     About me
   </div>
   <div class="user_info_data">
     ${user.firstName} ${user.lastName}<br/>
     ${user.emailAddress}<br/>
-
-    API Token (What's this?): ${user.apiKey}<br/>
-    <form:form action="/bookmarks/b/apiKey">
-      <input type="submit" value="Generate new API Token"/>
-    </form:form>
-    <br/>
-
-    Last login: <br/>
-    Login expires: <br/>
-    <form:form action="/bookmarks/b/tokens">
-      <input type="submit" value="Remember me for one week"/>
-    </form:form>
-    <br/>
+    You have <span id="bookmark_count">${fn:length(user.bookmarks)}</span> bookmarks.
   </div>
   
   <div class="user_bookmark_actions">
-    <p>You can add a bookmark manually<br/>
-      <jsp:include page="/b/bookmarks/new"/>
-    </p>
     <p>You can drag this link to your bookmarks toolbar for quick bookmarking:
       <a href="javascript:(function(){targetUrl='http://${pageContext.request.serverName}:8080/bookmarks/b/bookmarks/new?url='+encodeURI(document.location)+'&title='+encodeURI(document.title);window.open(targetUrl,'QuickBookmark','width=400,height=400,location=yes,links=no,toolbar=no');})()">Quick bookmark</a>
     </p>
@@ -58,6 +62,16 @@
         <input type="submit"/>
       </form>
     </p>
+
+    <p>You can add a bookmark manually<br/>
+      <jsp:include page="/b/bookmarks/new"/>
+    </p>
+  </div>
+  
+  <div class="api_key_data">
+    API Token (What's this?): <span id="api_token">${user.apiKey}</span><br/>
+    <input type="submit" id="new_api_token_button" value="Generate new API Token"/>
+    <br/>
   </div>
   
   <div class="bookmark_sharing">
