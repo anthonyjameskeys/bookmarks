@@ -34,11 +34,20 @@
           <c:set var="title" value="${fn:substring(bookmark.url, 0, 35)}${titleSuffix}"/>
         </c:otherwise>
       </c:choose>
-      <a href="${bookmark.url}" title="${bookmark.title}" class="bookmark_link">${title}</a><br/>
-      <c:forTokens var="tag" items="${bookmark.tags}" delims=",">
-        <a href="/bookmarks/b/tags?tag=${tag}">${tag}</a>&nbsp;&nbsp;
-      </c:forTokens>
+      <a href="${bookmark.url}" title="${bookmark.title}" class="bookmark_link">${title}</a>
       <br/>
+    </div>
+    <div class="bookmark_tags">
+      <c:choose>
+        <c:when test="${fn:length(bookmark.tags) gt 0}">
+          <c:forTokens var="tag" items="${bookmark.tags}" delims=",">
+            <a href="/bookmarks/b/tags?tag=${tag}">${tag}</a>&nbsp;&nbsp;
+          </c:forTokens>
+        </c:when>
+        <c:otherwise>
+          <span class="no_tags">Click to add tags</span>
+        </c:otherwise>
+      </c:choose>
     </div>
     <div class="spacer" style="clear: both; height: 0px;">&nbsp;</div>
   </div>

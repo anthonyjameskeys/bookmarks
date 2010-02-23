@@ -85,7 +85,7 @@ public class BookmarkController {
 
     //TODO intentionally not updating user object in session right now.  Should only be called for json output right now.
     
-    return "redirect:add_bookmark_success";
+    return "add_bookmark_success";
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE)

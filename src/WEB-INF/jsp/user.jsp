@@ -36,8 +36,12 @@
     font-weight: bold;
   }
   
-  div.tag_form {
-    
+  div.bookmark_tags_form {
+    border: 1px solid black;
+  }
+  
+  span.no_tags {
+    font-size: small;
   }
 </style>
 

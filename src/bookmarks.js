@@ -70,21 +70,21 @@ $(function() {
                                       hoverClass: 'drophover'
                                     });
 
-  submit_tags = function(id, tags) {
-    
+  submit_tags = function(id, tags, elm) {
+    console.log(elm[0].innerHTML)
   };
 
-  $(".bookmark_container").click( function() {
-                                    var elm = $(this).find(".tag_form")[0];
-                                    if (elm == null) {
-                                      elm = $("<div></div>").addClass("tag_form").hide();
-                                      text_field = $("<input type=\"text\" id=\"tags\" name=\"tags\"/>");
-                                      elm.appent(text_field);
-                                      img = $("<img src=\"/bookmarks/tag_submit.png\"");
-                                      img.click(submit_tags(ID, TAGS));
-                                      
-                                      $(this).append(elm);
-                                    }
-                                    $(elm).slideToggle("slow");
-                                  });                                    
+  $(".bookmark_tags").click(function() {
+                              $(".bookmark_tags_form").fadeOut("slow", function() {
+                                $(this.parentNode).find(".bookmark_tags").fadeIn("slow");
+                              });
+                              elm = $("<div></div>").addClass("bookmark_tags_form").hide();
+                              text_field = $("<input type=\"text\" id=\"tags\" name=\"tags\" size=\"35\"/>");
+                              elm.append(text_field);
+                              submit_button = $("<input type=\"submit\" name=\"submit\" value=\"update\"/>");
+                              submit_button.click(function() {submit_tags(0, "none", $(elm));});
+                              elm.append(submit_button);
+                              elm.appendTo($(this.parentNode));
+                              $(this).fadeOut("fast", function() {elm.fadeIn("fast");});
+                            });                                    
 });
