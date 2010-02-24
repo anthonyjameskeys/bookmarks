@@ -30,6 +30,8 @@ import javax.servlet.http.*;
 import net.anthonychaves.bookmarks.models.*;
 import net.anthonychaves.bookmarks.service.*;
 
+import java.util.*;
+
 @Controller
 @RequestMapping("/bookmarks")
 public class BookmarkController {
@@ -76,14 +78,24 @@ public class BookmarkController {
 	                             ModelMap model) {
 
     User user = (User) session.getAttribute("user");
-    Bookmark bookmark = bookmarkService.updateTags(user, id, tags);
+    Object[] userBookmark = bookmarkService.updateTags(user, id, tags);
+    
+    user = (User)userBookmark[0];
+    Bookmark bookmark = (Bookmark)userBookmark[1];
+    List<String> deletedTags = (List<String>)userBookmark[2];
+    
     tagService.addTags(bookmark);
+    for (String t : deletedTags) {
+      if (t.length() > 0) {
+        tagService.deleteBookmarkFromTag(bookmark, t);
+      }
+    }
 
     BookmarkDetail b = new BookmarkDetail(bookmark.getId(), bookmark.getTitle(), bookmark.getUrl(), bookmark.getTags());
     model.clear();
     model.addAttribute("bookmark", b);
 
-    //TODO intentionally not updating user object in session right now.  Should only be called for json output right now.
+    session.setAttribute("user", user);
     
     return "add_bookmark_success";
 	}

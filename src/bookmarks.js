@@ -36,20 +36,21 @@ $(function() {
                                       });
   
   delete_bookmark = function(elm) {
-    var bId = elm.find('.bookmark_content')[0].id;
-    $.ajax({type: "POST",
-           url: "/bookmarks/b/bookmarks.json",
-           data: "_method=delete&bookmarkId=" + bId,
-           success: function(msg) {
-             elm.slideUp();
-             var count_span = $('#bookmark_count')[0];
-             var count = count_span.innerHTML;
-             count_span.innerHTML = --count;
-           },
-           error: function(request, settings) {
-             alert("you screwed up\n"+request.responseText);
-           }});
-  };
+                      var bId = elm.find('.bookmark_content')[0].id;
+                      $.ajax( {type: "POST",
+                                url: "/bookmarks/b/bookmarks.json",
+                                data: "_method=delete&bookmarkId=" + bId,
+                                success: function(msg) {
+                                  elm.slideUp();
+                                  var count_span = $('#bookmark_count')[0];
+                                  var count = count_span.innerHTML;
+                                  count_span.innerHTML = --count;
+                                },
+                                error: function(request, settings) {
+                                  alert("you screwed up\n"+request.responseText);
+                                }
+                              });
+                    };
   
   $('.bookmark_container').draggable({revert: false, opacity: 0.7, helper: 'clone', containment: "document"});
 
@@ -70,21 +71,56 @@ $(function() {
                                       hoverClass: 'drophover'
                                     });
 
-  submit_tags = function(id, tags, elm) {
-    console.log(elm[0].innerHTML)
+  format_tags = function(tags) {
+    s_tags = tags.split(",");
+    for (var i=0; i < s_tags.length; i++) {
+      s_tags[i] = "<a href=\"/bookmarks/b/tags?tag=" + s_tags[i] + "\">" + s_tags[i] + "</a>";
+    }
+    return s_tags.join("&nbsp;&nbsp");
   };
 
+  submit_tags = function(id, elm, parent) {
+    var tags = elm.find("#tags")[0].value;
+    var bookmark_tags = parent.find(".bookmark_tags")[0];
+
+    $.ajax( {type: "POST",
+              url: "/bookmarks/b/bookmarks.json",
+              data: "_method=put&id=" + id + "&tags=" + encodeURI(tags),
+              success: function(data, textStatus) {
+                if (data["bookmark"]["tags"] == "") {
+                  bookmark_tags.innerHTML = "<span class=\"no_tags\">Click to tag</span>";
+                } else {
+                  bookmark_tags.innerHTML = format_tags(data["bookmark"]["tags"]);
+                }
+                elm.fadeOut("fast", function() {$(elm[0].parentNode).remove(elm); $(bookmark_tags).fadeIn("fast");});
+              },
+              error: function(request, settings) {
+                alert("you screwed up\n"+request.responseText);
+              }
+            });
+  };
+  
   $(".bookmark_tags").click(function() {
-                              $(".bookmark_tags_form").fadeOut("slow", function() {
-                                $(this.parentNode).find(".bookmark_tags").fadeIn("slow");
-                              });
+                              var parent = $(this.parentNode);
+                              var bId = parent.find('.bookmark_content')[0].id;
+                              
+                              $(".bookmark_tags_form").fadeOut("slow",  function() {
+                                                                          $(this.parentNode).find(".bookmark_tags").fadeIn("slow");
+                                                                        });
+
+                              
                               elm = $("<div></div>").addClass("bookmark_tags_form").hide();
                               text_field = $("<input type=\"text\" id=\"tags\" name=\"tags\" size=\"35\"/>");
+                              if (this.innerText != "Click to tag") {
+                                text_field[0].value = this.innerText;
+                              }
                               elm.append(text_field);
+
                               submit_button = $("<input type=\"submit\" name=\"submit\" value=\"update\"/>");
-                              submit_button.click(function() {submit_tags(0, "none", $(elm));});
+                              submit_button.click(function() {submit_tags(bId, elm, parent);});
                               elm.append(submit_button);
-                              elm.appendTo($(this.parentNode));
+
+                              elm.appendTo(parent);
                               $(this).fadeOut("fast", function() {elm.fadeIn("fast");});
                             });                                    
 });

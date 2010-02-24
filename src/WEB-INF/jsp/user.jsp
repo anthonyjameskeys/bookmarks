@@ -37,7 +37,7 @@
   }
   
   div.bookmark_tags_form {
-    border: 1px solid black;
+    
   }
   
   span.no_tags {
@@ -61,6 +61,8 @@
     ${user.firstName} ${user.lastName}<br/>
     ${user.emailAddress}<br/>
     You have <span id="bookmark_count">${fn:length(user.bookmarks)}</span> bookmarks.
+    <br/>
+    <input id="remember_me_button" type="submit" value="Remember me for 1 week">
   </div>
   
   <div class="user_bookmark_actions">

@@ -44,7 +44,7 @@ public class TagService {
   }
 
   public void addTags(Bookmark bookmark) {
-    StringTokenizer st = new StringTokenizer(bookmark.getTags(), " ");
+    StringTokenizer st = new StringTokenizer(bookmark.getTags(), ", ");
     
     try {
       while (st.hasMoreTokens()) {
@@ -74,6 +74,14 @@ public class TagService {
     em.getTransaction().rollback();
     
     return bookmarks;
+  }
+  
+  public long deleteBookmarkFromTag(Bookmark bookmark, String tag) {
+    try {
+      return jredis.lrem(tag, String.valueOf(bookmark.getId()), 0);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
   
   public List<String> findRelatedTags(String tag) {

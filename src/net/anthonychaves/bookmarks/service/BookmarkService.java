@@ -27,6 +27,8 @@ import net.anthonychaves.bookmarks.models.*;
 
 import org.htmlcleaner.*;
 
+import java.util.*;
+
 @Service
 public class BookmarkService {
   
@@ -41,7 +43,7 @@ public class BookmarkService {
     return bookmark;
   }
   
-  public Bookmark updateTags(User user, int id, String tags) {
+  public Object[] updateTags(User user, int id, String tags) {
     EntityManager em = emf.createEntityManager();
 
     em.getTransaction().begin();
@@ -51,9 +53,20 @@ public class BookmarkService {
       throw new RuntimeException("Please don't try to delete bookmarks that aren't yours.");
     }
     
+    String originalTags = b.getTags();
     b.setTags(tags);
     em.getTransaction().commit();
+    
+    List<String> diffTags = diffTags(originalTags, tags);
 
-    return b;
+    return new Object[] {u, b, diffTags};
+  }
+  
+  private List<String> diffTags(String originalTags, String newTags) {
+    List<String> original = new ArrayList<String>(Arrays.asList(originalTags.split("\\W")));
+    List<String> newT = new ArrayList<String>(Arrays.asList(newTags.split("\\W")));
+    original.removeAll(newT);
+    
+    return original;
   }
 }

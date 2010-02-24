@@ -45,7 +45,7 @@
           </c:forTokens>
         </c:when>
         <c:otherwise>
-          <span class="no_tags">Click to add tags</span>
+          <span class="no_tags">Click to tag</span>
         </c:otherwise>
       </c:choose>
     </div>
