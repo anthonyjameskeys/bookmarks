@@ -76,32 +76,30 @@ $(function() {
     for (var i=0; i < s_tags.length; i++) {
       s_tags[i] = "<a href=\"/bookmarks/b/tags?tag=" + s_tags[i] + "\">" + s_tags[i] + "</a>";
     }
-    return s_tags.join("&nbsp;&nbsp");
+    return s_tags.join(" ");
   };
 
   submit_tags = function(id, elm, parent) {
     var tags = elm.find("#tags")[0].value;
-    var bookmark_tags = parent.find(".bookmark_tags")[0];
+    var bookmark_tags = parent.find(".bookmark_tags_content")[0];
 
     $.ajax( {type: "POST",
               url: "/bookmarks/b/bookmarks.json",
-              data: "_method=put&id=" + id + "&tags=" + encodeURI(tags),
-              success: function(data, textStatus) {
-                if (data["bookmark"]["tags"] == "") {
-                  bookmark_tags.innerHTML = "<span class=\"no_tags\">Click to tag</span>";
-                } else {
-                  bookmark_tags.innerHTML = format_tags(data["bookmark"]["tags"]);
-                }
-                elm.fadeOut("fast", function() {$(elm[0].parentNode).remove(elm); $(bookmark_tags).fadeIn("fast");});
-              },
-              error: function(request, settings) {
-                alert("you screwed up\n"+request.responseText);
-              }
+              data: "_method=put&id=" + id + "&tags=" + encodeURI(tags.replace(/\W+/g, " ")),
+              success:  function(data, textStatus) {
+                          bookmark_tags.innerHTML = format_tags(data["bookmark"]["tags"]);
+                          bookmark_tags.width = "300px";
+                          elm.fadeOut("fast", function() {$(elm[0].parentNode).remove(elm); $(bookmark_tags.parentNode).fadeIn("fast");});
+                        },
+              error:  function(request, settings) {
+                        elm.fadeOut("fast", function() {$(elm[0].parentNode).remove(elm); $(bookmark_tags.parentNode).fadeIn("fast");});
+                      }
             });
   };
   
-  $(".bookmark_tags").click(function() {
-                              var parent = $(this.parentNode);
+  $(".bookmark_tags_button").click(function() {
+                              var parent = $(this.parentNode.parentNode);
+                              var bookmark_tags = parent.find('.bookmark_tags')[0];
                               var bId = parent.find('.bookmark_content')[0].id;
                               
                               $(".bookmark_tags_form").fadeOut("slow",  function() {
@@ -111,8 +109,8 @@ $(function() {
                               
                               elm = $("<div></div>").addClass("bookmark_tags_form").hide();
                               text_field = $("<input type=\"text\" id=\"tags\" name=\"tags\" size=\"35\"/>");
-                              if (this.innerText != "Click to tag") {
-                                text_field[0].value = this.innerText;
+                              if (bookmark_tags.innerText != "Click to tag") {
+                                text_field[0].value = bookmark_tags.innerText;
                               }
                               elm.append(text_field);
 
@@ -121,6 +119,6 @@ $(function() {
                               elm.append(submit_button);
 
                               elm.appendTo(parent);
-                              $(this).fadeOut("fast", function() {elm.fadeIn("fast");});
+                              $(bookmark_tags).fadeOut("fast", function() {elm.fadeIn("fast");});
                             });                                    
 });

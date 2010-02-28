@@ -38,16 +38,17 @@
       <br/>
     </div>
     <div class="bookmark_tags">
+      <div class="bookmark_tags_button"><img src="some_tag_image.png"/></div>
+      <div class="bookmark_tags_content">
       <c:choose>
         <c:when test="${fn:length(bookmark.tags) gt 0}">
           <c:forTokens var="tag" items="${bookmark.tags}" delims=",">
-            <a href="/bookmarks/b/tags?tag=${tag}">${tag}</a>&nbsp;&nbsp;
+            <a href="/bookmarks/b/tags?tag=${tag}">${tag}</a> 
           </c:forTokens>
         </c:when>
-        <c:otherwise>
-          <span class="no_tags">Click to tag</span>
-        </c:otherwise>
+        
       </c:choose>
+      </div>
     </div>
     <div class="spacer" style="clear: both; height: 0px;">&nbsp;</div>
   </div>

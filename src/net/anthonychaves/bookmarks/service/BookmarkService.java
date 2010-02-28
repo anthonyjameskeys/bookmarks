@@ -44,6 +44,8 @@ public class BookmarkService {
   }
   
   public Object[] updateTags(User user, int id, String tags) {
+    String cleanTags = cleanTags(tags);
+    
     EntityManager em = emf.createEntityManager();
 
     em.getTransaction().begin();
@@ -54,12 +56,23 @@ public class BookmarkService {
     }
     
     String originalTags = b.getTags();
-    b.setTags(tags);
+    b.setTags(cleanTags);
     em.getTransaction().commit();
     
-    List<String> diffTags = diffTags(originalTags, tags);
+    List<String> diffTags = diffTags(originalTags, cleanTags);
 
     return new Object[] {u, b, diffTags};
+  }
+  
+  private String cleanTags(String tags) {
+    Set<String> tagSet = new HashSet<String>(new ArrayList<String>(Arrays.asList(tags.split("\\W"))));
+    StringBuilder cleanTags = new StringBuilder();
+    
+    for (String t : tagSet) {
+      cleanTags.append(t + ",");
+      System.out.println("tags: " + cleanTags.toString());
+    }
+    return cleanTags.toString();
   }
   
   private List<String> diffTags(String originalTags, String newTags) {

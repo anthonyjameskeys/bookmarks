@@ -78,8 +78,8 @@ public class BookmarkController {
 	                             ModelMap model) {
 
     User user = (User) session.getAttribute("user");
-    Object[] userBookmark = bookmarkService.updateTags(user, id, tags);
-    
+    Object[] userBookmark = bookmarkService.updateTags(user, id, tags.replaceAll("\\s", ","));
+System.out.println("tags:" + tags.replaceAll("\\s", ","));    
     user = (User)userBookmark[0];
     Bookmark bookmark = (Bookmark)userBookmark[1];
     List<String> deletedTags = (List<String>)userBookmark[2];

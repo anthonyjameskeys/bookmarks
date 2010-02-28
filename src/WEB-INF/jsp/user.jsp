@@ -43,6 +43,16 @@
   span.no_tags {
     font-size: small;
   }
+  
+  div.bookmark_tags_button {
+    float: left;
+  }
+  
+  div.bookmark_tags_content {
+    max-width: 300px;
+    width: 300px;
+    text-align: left;    
+  }
 </style>
 
 <script type="text/javascript" src="/bookmarks/jquery-1.4.1.js"></script>
